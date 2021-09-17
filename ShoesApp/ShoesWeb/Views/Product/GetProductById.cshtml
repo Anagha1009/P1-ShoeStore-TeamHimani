@@ -26,13 +26,7 @@
             @Html.DisplayFor(model => model.Product_Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category_Id)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category_Id)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Category_Name)
@@ -42,13 +36,7 @@
             @Html.DisplayFor(model => model.Category_Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Store_Id)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Store_Id)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Store_Name)
@@ -81,10 +69,10 @@
         <dd>
             @Html.DisplayFor(model => model.Image)
         </dd>
-
+       
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "UpdateProductById", new {  id = Model.Product_Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

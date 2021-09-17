@@ -18,8 +18,12 @@ namespace shoeconsole
 
             ProductRepository prod = new ProductRepository(new ProductModel());
 
-            getproduct(prod); 
-            
+            getproduct(prod);
+
+            Console.WriteLine("\nAdding new product");
+            addproduct(prod);
+            getproduct(prod);
+
             Console.WriteLine("\nEnter a Id to fetch a product");
             int id = Convert.ToInt32(Console.ReadLine());
             Getproductbyid(prod, id);
@@ -34,9 +38,7 @@ namespace shoeconsole
             updateproduct(prod, id2);
             getproduct(prod);
 
-            Console.WriteLine("\nAdding new product");
-            addproduct(prod);
-            getproduct(prod);
+            
 
             
         }

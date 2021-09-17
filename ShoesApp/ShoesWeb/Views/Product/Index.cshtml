@@ -12,9 +12,7 @@
         <tr>
             <th>@Html.DisplayNameFor(m => m.Product_Id)</th>
             <th>@Html.DisplayNameFor(m => m.Product_Name)</th>
-            <th>@Html.DisplayNameFor(m => m.Category_Id)</th>
             <th>@Html.DisplayNameFor(m => m.Category_Name)</th>
-            <th>@Html.DisplayNameFor(m => m.Store_Id)</th>
             <th>@Html.DisplayNameFor(m => m.Store_Name)</th>
             <th>@Html.DisplayNameFor(m => m.Price)</th>
             <th>@Html.DisplayNameFor(m => m.Quantity)</th>
@@ -28,16 +26,16 @@
         <tr>
             <td>@emp.Product_Id</td>
             <td>@emp.Product_Name</td>
-            <td>@emp.Category_Id</td>
+           
             <td>@emp.Category_Name</td>
-            <td>@emp.Store_Id</td>
+            
             <td>@emp.Store_Name</td>
             <td>@emp.Price</td>
             <td>@emp.Quantity</td>
             <td>@emp.Image</td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = emp.Product_Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Edit", "Edit", new { id = emp.Product_Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Details", "GetProductById", new { id = emp.Product_Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Edit", "UpdateProductById", new { id = emp.Product_Id }, new { @class = "btn btn-primary" })
                 @Html.ActionLink("Delete", "DeleteProductById", new { id = emp.Product_Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
