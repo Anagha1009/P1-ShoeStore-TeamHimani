@@ -7,6 +7,7 @@ using ShoesWeb.Models;
 using Data.Entites;
 using Data;
 using System.Data;
+using System.Net;
 
 namespace ShoesWeb.Controllers
 {
@@ -31,40 +32,67 @@ namespace ShoesWeb.Controllers
             }
             return View(data);
         }
-        public ActionResult GetProductById(int id)
+        public ActionResult GetProductById(int? id)
         {
-            var product = repo.GetProductById(id);
-            return View(Mapper.Map(product));
+
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var cat = repo.GetProductById(id);
+            if (cat == null)
+                return HttpNotFound();
+            return View(Mapper.Map(cat));
+            //var product = repo.GetProductById(id);
+            //return View(Mapper.Map(product));
         }
         [HttpGet]
+        public ActionResult DeleteProductById(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var product=repo.GetProductById(id);
+            if (product==null)
+                return HttpNotFound();
+            return View(Mapper.Map(product));
+            //repo.DeleteProduct(id);
+            //repo.Save();
+            //return RedirectToAction("Index", "Product");
+        }
+
+        [HttpPost]
         public ActionResult DeleteProductById(int id)
         {
-            var product=repo.GetProductById(id);
-           // return View(Mapper.Map(product));
+           
             repo.DeleteProduct(id);
             repo.Save();
             return RedirectToAction("Index", "Product");
+
         }
-
-        //[HttpPost]
-        //public ActionResult ConfirmDelete(int id)
-        //{
-            
-        //    repo.DeleteProduct(id);
-        //    repo.Save();
-        //    return RedirectToAction("Index", "Home");
-
-        //}
-        public ActionResult UpdateProductById(int id)
+        [HttpGet]
+        public ActionResult UpdateProductById(int? id)
         {
-            var product = repo.GetProductById(id);
-            View(Mapper.Map(product));
-
-            repo.UpdateProduct(id);
-            repo.Save();
-            return RedirectToAction("Index", "Product");
-            
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var cat = repo.GetProductById(id);
+            if (cat == null)
+                return HttpNotFound();
+            return View(Mapper.Map(cat));
         }
-        
+        [HttpPost]
+        public ActionResult UpdateProductById(Product product)
+        {
+
+            if (ModelState.IsValid)
+            {
+                repo.UpdateProduct(product.Product_Id);
+                return RedirectToAction("Index");
+            }
+            return View(product);
+        }
+        //repo.UpdateProduct(id);
+        //repo.Save();
+        //return RedirectToAction("Index", "Product");
+
     }
+        
+    
 }

@@ -174,8 +174,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\GetProductById.cshtml" />
-    <Content Include="Views\Product\DeleteProductById.cshtml" />
     <Content Include="Views\Product\UpdateProductById.cshtml" />
+    <Content Include="Views\Product\DeleteProductById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

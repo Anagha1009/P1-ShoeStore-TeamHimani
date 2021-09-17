@@ -27,13 +27,7 @@
             @Html.DisplayFor(model => model.Product_Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category_Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category_Id)
-        </dd>
+       
 
         <dt>
             @Html.DisplayNameFor(model => model.Category_Name)
@@ -43,13 +37,7 @@
             @Html.DisplayFor(model => model.Category_Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Store_Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Store_Id)
-        </dd>
+       
 
         <dt>
             @Html.DisplayNameFor(model => model.Store_Name)
@@ -88,10 +76,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-<div class="form-actions no-color">
-    <input type="submit" value="Delete" class="btn btn-default" /> |
-   
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
     }
 </div>
