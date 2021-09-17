@@ -14,29 +14,27 @@
             <th>@Html.DisplayNameFor(m => m.Product_Name)</th>
             <th>@Html.DisplayNameFor(m => m.Category_Name)</th>
             <th>@Html.DisplayNameFor(m => m.Store_Name)</th>
-            <th>@Html.DisplayNameFor(m => m.Price)</th>
-            <th>@Html.DisplayNameFor(m => m.Quantity)</th>
-            <th>@Html.DisplayNameFor(m => m.Image)</th>
+            <th>@Html.DisplayNameFor(m => m.Product_Price)</th>
+            <th>@Html.DisplayNameFor(m => m.Product_Quantity)</th>
+            <th>@Html.DisplayNameFor(m => m.Product_Image)</th>
             <th>Action(s)</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var emp in Model)
+        @foreach (var product in Model)
         {
         <tr>
-            <td>@emp.Product_Id</td>
-            <td>@emp.Product_Name</td>
-           
-            <td>@emp.Category_Name</td>
-            
-            <td>@emp.Store_Name</td>
-            <td>@emp.Price</td>
-            <td>@emp.Quantity</td>
-            <td>@emp.Image</td>
+            <td>@product.Product_Id</td>
+            <td>@product.Product_Name</td>           
+            <td>@product.Category_Name</td>
+            <td>@product.Store_Name</td>
+            <td>@product.Product_Price</td>
+            <td>@product.Product_Quantity</td>
+            <td>@product.Product_Image</td>
             <td>
-                @Html.ActionLink("Details", "GetProductById", new { id = emp.Product_Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Edit", "UpdateProductById", new { id = emp.Product_Id }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "DeleteProductById", new { id = emp.Product_Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Details", "GetProductById", new { id = product.Product_Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Edit", "UpdateProductById", new { id = product.Product_Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "DeleteProductById", new { id = product.Product_Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
 

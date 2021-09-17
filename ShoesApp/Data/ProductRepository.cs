@@ -60,7 +60,6 @@ namespace Data
         {
             return db.tb_products
                 .ToList();
-
         }
 
         public void Save()
@@ -85,23 +84,34 @@ namespace Data
             }
         }
 
-      
-        public tb_products UpdateProduct(int? id)
+        public tb_products UpdateProduct(int? id, tb_products products)
         {
             //var pro = db.tb_products.Where<tb_products>(p => p.product_id == id).First();
-
-            var cat = db.tb_products.Find(id);
-            if (cat != null)
+            var pro = db.tb_products.Find(id);
+            if (pro != null)
             {
-                db.Entry(cat).State = EntityState.Modified;
-                Save();
-                return cat;
+                //db.Entry(pro).State = EntityState.Modified;
+                pro.product_name = products.product_name;
+                pro.product_image = products.product_image;
+                pro.product_price = products.product_price;
+                pro.product_quantity = products.product_quantity;
+                pro.category_id = products.category_id;
+                pro.store_id = products.store_id;
+                db.SaveChanges();
+                return pro;
             }
             else
-                return cat;
-           
-              
-          
+                return pro;
+        }
+
+        public IEnumerable<tb_category> getCategory()
+        {
+            return db.tb_category.ToList();
+        }
+
+        public IEnumerable<tb_store> getStore()
+        {
+            return db.tb_store.ToList();
         }
     }
 }

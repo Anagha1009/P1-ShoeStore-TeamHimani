@@ -11,7 +11,7 @@ namespace Data
         IEnumerable<tb_products> GetProducts();
         tb_products GetProductById(int? id);
         void AddProduct(tb_products product);
-        tb_products UpdateProduct(int? id);
+        tb_products UpdateProduct(int? id, tb_products product);
         void DeleteProduct(int id);
         void Save();
     }

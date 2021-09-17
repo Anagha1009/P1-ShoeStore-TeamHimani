@@ -37,9 +37,6 @@ namespace shoeconsole
             int id2 = Convert.ToInt32(Console.ReadLine());
             updateproduct(prod, id2);
             getproduct(prod);
-
-            
-
             
         }
         public static void Getproductbyid(ProductRepository prod, int id)
@@ -79,7 +76,7 @@ namespace shoeconsole
             var getproductbyid = prod.GetProductById(id);
             Console.WriteLine("\nType new value for Name");
             getproductbyid.product_name = Console.ReadLine();
-            prod.UpdateProduct(id);
+            //prod.UpdateProduct(id);
         }
         public static void addproduct(ProductRepository prod)
         {
