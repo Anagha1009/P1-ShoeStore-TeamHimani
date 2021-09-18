@@ -78,9 +78,9 @@ namespace ShoesWeb.Controllers
 
         [HttpPost]
         public ActionResult UpdateProductById(tb_products products, HttpPostedFileBase Product_Image)
-        {            
+        {
             try
-            {  
+            {
                 if (Product_Image != null)
                 {
                     string fileExtension = Path.GetExtension(Path.GetFileName(Product_Image.FileName));
@@ -102,9 +102,9 @@ namespace ShoesWeb.Controllers
                     else
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Your file should be in .jpg, .png format and file size should be less than 200 kb!");
-                    }                   
+                    }
                 }
-                
+
                 repo.UpdateProduct(products.product_id, products);
             }
             catch (Exception)
@@ -113,6 +113,26 @@ namespace ShoesWeb.Controllers
             }
 
             return RedirectToAction("Index");
-        }    
+        }
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            ViewBag.Category = new SelectList(repo.getCategory(), "category_id", "category_name");
+            ViewBag.Store = new SelectList(repo.getStore(), "store_id", "store_name");
+            ViewBag.Color = new SelectList(repo.getColor(), "color_id", "color");
+            ViewBag.Size = new SelectList(repo.getSize(), "size_id", "size");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddProduct(Product products)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.AddProduct(Mapper.Maps(products));
+                return RedirectToAction("Index");
+            }
+            return View(products);
+        }
+
     }
 }

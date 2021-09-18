@@ -98,6 +98,7 @@ namespace Data
                 pro.product_quantity = products.product_quantity;
                 pro.category_id = products.category_id;
                 pro.store_id = products.store_id;
+
                 db.SaveChanges();
                 return pro;
             }
@@ -112,6 +113,14 @@ namespace Data
         public IEnumerable<tb_store> getStore()
         {
             return db.tb_store.ToList();
+        }
+        public IEnumerable<tb_color> getColor()
+        {
+            return db.tb_color.ToList();
+        }
+        public IEnumerable<tb_sizes> getSize()
+        {
+            return db.tb_sizes.ToList();
         }
     }
 }
