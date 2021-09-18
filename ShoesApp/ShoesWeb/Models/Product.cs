@@ -20,11 +20,15 @@ namespace ShoesWeb.Models
         public string Store_Name { get; set; }
         public decimal Product_Price { get; set; }
         public int Product_Quantity { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Required(ErrorMessage = "Please choose file to upload.")]
         public string Product_Image { get; set; }
         public int Color_Id { get; set; }
         public string Color { get; set; }
         public int Size_Id { get; set; }
         public decimal Size { get; set; }
+
 
     }
     

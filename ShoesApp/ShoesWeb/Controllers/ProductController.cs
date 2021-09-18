@@ -8,6 +8,7 @@ using Data.Entites;
 using Data;
 using System.Data;
 using System.Net;
+using System.IO;
 
 namespace ShoesWeb.Controllers
 {
@@ -76,9 +77,41 @@ namespace ShoesWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateProductById(tb_products products)
-        {
-            repo.UpdateProduct(products.product_id, products);
+        public ActionResult UpdateProductById(tb_products products, HttpPostedFileBase Product_Image)
+        {            
+            try
+            {  
+                if (Product_Image != null)
+                {
+                    string fileExtension = Path.GetExtension(Path.GetFileName(Product_Image.FileName));
+                    decimal filesize = Math.Round(((decimal)Product_Image.ContentLength / (decimal)1024), 2);
+
+                    if ((fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".png") && (filesize < 200))
+                    {
+                        products.product_image = products.product_id + "_" + Product_Image.FileName;
+                        string path = Path.Combine(Server.MapPath("~/Images/ProductImg"), products.product_image);
+
+                        FileInfo imgfile = new FileInfo(path);
+                        if (imgfile.Exists)
+                        {
+                            imgfile.Delete();
+                        }
+
+                        Product_Image.SaveAs(path);
+                    }
+                    else
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Your file should be in .jpg, .png format and file size should be less than 200 kb!");
+                    }                   
+                }
+                
+                repo.UpdateProduct(products.product_id, products);
+            }
+            catch (Exception)
+            {
+                ViewBag.FileStatus = "Error while file uploading."; ;
+            }
+
             return RedirectToAction("Index");
         }    
     }

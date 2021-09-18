@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.IO;
 
 namespace Data
 {
@@ -103,7 +104,6 @@ namespace Data
             else
                 return pro;
         }
-
         public IEnumerable<tb_category> getCategory()
         {
             return db.tb_category.ToList();
