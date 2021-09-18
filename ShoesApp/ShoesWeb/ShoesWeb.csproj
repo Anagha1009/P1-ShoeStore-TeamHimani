@@ -194,6 +194,7 @@
     <Content Include="Views\Product\GetProductById.cshtml" />
     <Content Include="Views\Product\UpdateProductById.cshtml" />
     <Content Include="Views\Product\DeleteProductById.cshtml" />
+    <Content Include="Views\Product\AddProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
