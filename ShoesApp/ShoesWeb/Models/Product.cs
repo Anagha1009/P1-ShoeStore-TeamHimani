@@ -11,17 +11,19 @@ namespace ShoesWeb.Models
     {
         [DisplayName("Id")]
         public int Product_Id { get; set; }
+
         [DisplayName("Name")]
-        [Required(ErrorMessage = "Please enter first name")]
         public string Product_Name { get; set; }       
         public int? Category_Id { get; set; } 
         public string Category_Name { get; set; }
         public int? Store_Id { get; set; }
         public string Store_Name { get; set; }
-        [Required(ErrorMessage = "Please enter first name")]
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public string Image { get; set; }
+        public decimal Product_Price { get; set; }
+        public int Product_Quantity { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Required(ErrorMessage = "Please choose file to upload.")]
+        public string Product_Image { get; set; }
         public int Color_Id { get; set; }
         public string Color { get; set; }
         public int Size_Id { get; set; }
