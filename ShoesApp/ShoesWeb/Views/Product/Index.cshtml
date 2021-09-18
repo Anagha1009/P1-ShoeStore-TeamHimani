@@ -7,7 +7,7 @@
 <p>
     @Html.ActionLink("Add New Product", "AddProduct", "", new { @class = "btn btn-primary" })
 </p>
-<table class="table table-bordered">
+<table class="table table-bordered text-center">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(m => m.Product_Id)</th>
@@ -30,7 +30,7 @@
             <td>@product.Store_Name</td>
             <td>@product.Product_Price</td>
             <td>@product.Product_Quantity</td>
-            <td>@product.Product_Image</td>
+            <td><img src="@Url.Content("/Images/ProductImg/" + @product.Product_Image)" alt="@product.Product_Image" height="30" width="30" /></td>
             <td>
                 @Html.ActionLink("Details", "GetProductById", new { id = product.Product_Id }, new { @class = "btn btn-info" })
                 @Html.ActionLink("Edit", "UpdateProductById", new { id = product.Product_Id }, new { @class = "btn btn-primary" })
