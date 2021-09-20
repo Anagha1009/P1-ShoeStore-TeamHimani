@@ -13,13 +13,21 @@ namespace ShoesWeb.Models
         public int Product_Id { get; set; }
 
         [DisplayName("Name")]
-        public string Product_Name { get; set; }       
-        public int? Category_Id { get; set; } 
-        public string Category_Name { get; set; }
+        [Required(ErrorMessage = "Please enter Product Name")]
+        public string Product_Name { get; set; }        
+        public int? Category_Id { get; set; }
+
+        public string Category_Name { get; set; }        
         public int? Store_Id { get; set; }
+
+        [Required(ErrorMessage = "Please select Store")]
         public string Store_Name { get; set; }
+
+        [Required(ErrorMessage = "Please enter Product Price")]
         public decimal Product_Price { get; set; }
-        public int Product_Quantity { get; set; }
+
+        [Required(ErrorMessage = "Please enter Product Quantity")]
+        public int Product_Quantity { get; set; }        
 
         [DataType(DataType.Upload)]
         [Required(ErrorMessage = "Please choose file to upload.")]
@@ -28,7 +36,6 @@ namespace ShoesWeb.Models
         public string Color { get; set; }
         public int Size_Id { get; set; }
         public decimal Size { get; set; }
-
 
     }
     
