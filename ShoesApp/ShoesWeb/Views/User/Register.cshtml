@@ -1,0 +1,190 @@
+﻿@model ShoesWeb.Models.User
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Register</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- SweetAlert2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css" />
+        <style>
+            body {
+                background-image: url('/Images/BannerImg/blurbg.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .registrationCard, .loginCard {
+                background-color: rgba(245, 245, 245, 0.5);
+                border-radius: 2rem;
+                border-color: darkgoldenrod;
+            }
+
+            .loginCard {
+                margin-top: 10rem;
+            }
+
+            input[type=text], input[type=password], input[type=text]:focus {
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid black;
+                border-radius: 0rem;
+            }
+
+            .form-control:focus {
+                border-color: inherit;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                background: transparent;
+            }
+
+
+            #card {
+                transform-style: preserve-3d;
+                transition: transform 1s;
+            }
+
+                #card figure {
+                    margin: 0;
+                    backface-visibility: hidden;
+                }
+
+                #card .back {
+                    display: none;
+                    transform: rotateY( 180deg);
+                }
+
+                #card.flipped {
+                    transform: rotateY( 180deg);
+                }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-lg-7 mx-auto">
+                <div id="card">
+                    <figure class="front">
+                        <div class="card registrationCard" style="margin-top:6rem;">
+                            <div class="card-body">
+                                <h3 class="text-center mb-5">Register Yourself !</h3>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">Name</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.Customer_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Customer_Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">Email</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.Customer_Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Customer_Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">Contact</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.Customer_Contact, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Customer_Contact, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">User Name</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.User_Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">Password</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">Confirm Password</label>
+                                    <div class="col-sm-8">
+                                        <input id="TxtConfirmPassword" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="col-md-6 mx-auto mb-2">
+                                    <input id="BtnRegister" type="submit" value="Register" class="btn btn-info btn-block rounded-pill" />
+                                </div>
+                                <div class="col-md-6 mx-auto">
+                                    <input id="BtnShowLogin" type="submit" value="Already Registered?" class="btn btn-outline-dark rounded-pill btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                    <figure class="back">
+                        <div class="card loginCard">
+                            <div class="card-body">
+                                <h3 class="text-center mb-5"><u>Login</u></h3>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">User Name</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.User_Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 text-right">Password</label>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="col-md-6 mx-auto mb-2">
+                                    <input id="BtnLogin" type="submit" value="Login" class="btn btn-info btn-block rounded-pill" />
+                                </div>
+                                <div class="col-md-6 mx-auto">
+                                    <input id="BtnNewUser" type="submit" value="New User?" class="btn btn-outline-dark btn-block rounded-pill" />
+                                </div>
+                            </div>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+}
+<script>
+    var card = document.getElementById('card');
+
+    document.getElementById('BtnShowLogin').addEventListener('click', function (e) {
+        e.preventDefault();
+        card.classList.add('flipped');
+        $('.front').attr('style', 'display:none');
+        $('.back').attr('style', 'display:block');
+    }, false);
+
+
+    document.getElementById('BtnNewUser').addEventListener('click', function (e) {
+        e.preventDefault();
+        card.classList.remove('flipped');
+        $('.back').attr('style', 'display:none');
+        $('.front').attr('style', 'display:block');
+
+    }, false);
+
+</script>
