@@ -33,8 +33,12 @@
                 <div class="mx-auto">
                     @Html.ActionLink("Shoe Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
+                
                 <ul class="navbar-nav ml-auto mr-4">
-                    <li><a href="#" class="nav-link"><span class="fa fa-sign-out"></span>Logout</a></li>
+
+                    <li>
+                    <label>@TempData["username"]</label>
+                    <a href="#" class="nav-link"><span class="fa fa-sign-out"></span>Logout</a></li>
                 </ul>
             </div>
         </div>
