@@ -43,5 +43,48 @@ namespace ShoesWeb.Models
             };
         }
 
+        public static tb_users Mapuser(User user)
+        {
+            return new tb_users()
+            {
+                user_id = user.User_Id,
+                username = user.User_Name,
+                password = user.Password,
+                role = user.Role,
+
+            };
+        }
+        public static tb_customers Mapcust(User user)
+        {
+            return new tb_customers()
+            {
+                user_id = user.User_Id,
+                customer_id = user.Customer_Id,
+                customer_name = user.Customer_Name,
+                customer_contact = user.Customer_Contact,
+                customer_email=user.Customer_Email,
+
+            };
+        }
+        public static tb_cart Mapcart(Cart cart)
+        {
+            return new tb_cart()
+            {
+                cart_id = cart.Cart_Id,
+                customer_id=cart.Customer_Id,
+                store_id=cart.Store_Id,
+                total_bill=cart.TotalBill,
+            };
+                
+        }
+        public static tb_cartdetails Mapcartdetails(Cart cart)
+        {
+            return new tb_cartdetails()
+            {
+                cart_id=cart.Cart_Id,
+                quantity=cart.Quantity,
+                product_id=cart.Product_Id,
+            };
+        }
     }
 }

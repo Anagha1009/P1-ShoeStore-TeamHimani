@@ -54,21 +54,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entites\CartModel.cs" />
     <Compile Include="Entites\ProductModel.cs" />
+    <Compile Include="Entites\tb_admins.cs" />
+    <Compile Include="Entites\tb_cart.cs" />
+    <Compile Include="Entites\tb_cartdetails.cs" />
     <Compile Include="Entites\tb_category.cs" />
     <Compile Include="Entites\tb_color.cs" />
+    <Compile Include="Entites\tb_customers.cs" />
     <Compile Include="Entites\tb_productcolor.cs" />
     <Compile Include="Entites\tb_products.cs" />
     <Compile Include="Entites\tb_productsize.cs" />
     <Compile Include="Entites\tb_sizes.cs" />
     <Compile Include="Entites\tb_store.cs" />
+    <Compile Include="Entites\tb_users.cs" />
+    <Compile Include="Entites\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IProductRepository.cs" />
     <Compile Include="ProductRepository.cs" />
+    <Compile Include="Repository\CartRepository.cs" />
+    <Compile Include="Repository\ICartRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
