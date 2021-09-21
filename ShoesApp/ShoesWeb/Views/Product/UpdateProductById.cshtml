@@ -4,7 +4,7 @@
     ViewBag.Title = "UpdateProductById";
 }
 
-<h3 class="text-center mb-5">Update Product</h3>
+<h3 class="text-center mb-5 mt-3">Update Product</h3>
 
 
 @using (Html.BeginForm("UpdateProductById", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <img src="@Url.Content("/Images/ProductImg/" + @Model.Product_Image)" alt="@Model.Product_Image" height="200" width="200" /><br />
+                <img src="@Url.Content("/Images/ProductImg/Boots/" + @Model.Product_Image)" alt="@Model.Product_Image" height="200" width="200" /><br />
             </div>
         </div>
         <div>

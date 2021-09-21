@@ -18,8 +18,6 @@ namespace Data.Repository
         UserModel um = new UserModel();
         public void AddCartItems(tb_cart cart,tb_cartdetails cartdetails,int? id,int cid)
         {
-
-            //cart.customer_id = 1;
             var cust = db.tb_cart.Where(e => e.customer_id == cid).FirstOrDefault();
             if (cust == null)
             {
@@ -28,24 +26,24 @@ namespace Data.Repository
                 cart.total_bill = pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().product_price;
                 db.tb_cart.Add(cart);
                 Save();
+                cartdetails.cart_id = db.tb_cart.Max(c => c.cart_id);
             }
             else
             {
                 //var pro = db.tb_cart.Find(id);
-                decimal existingp= db.tb_cart.Where(e => e.customer_id == cid).FirstOrDefault().total_bill;
-                decimal newp= pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().product_price;
-                cart.total_bill = existingp+newp;
+                var existingp = db.tb_cart.Where(e => e.customer_id == cid).FirstOrDefault();
+                decimal newp = pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().product_price;
+                existingp.total_bill = existingp.total_bill + newp;
                 Save();
+                cartdetails.cart_id = db.tb_cart.Where(e => e.customer_id == cid).FirstOrDefault().cart_id;
             }
-            cartdetails.cart_id = db.tb_cart.Max(c => c.cart_id);
+
             cartdetails.product_id = id;
             cartdetails.quantity = 1;
             db.tb_cartdetails.Add(cartdetails);
             Save();
             //throw new NotImplementedException();
         }
-
-
 
         public void DeleteCartItems(int id)
         {

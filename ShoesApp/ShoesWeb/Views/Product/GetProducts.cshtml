@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ShoesWeb.Models.Product>
+
+@{
+    ViewBag.Title = "GetProducts";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 col-sm-6 my-5">
+                <div class="card">
+                    @Html.HiddenFor(p => product.Product_Id)
+                    <img class="card-img" src="@Url.Content("/Images/ProductImg/Boots/" + product.Product_Image)" alt="@product.Product_Image" height="300" width="100">
+                    <div class="card-body">
+                        <h4 class="card-title">@product.Product_Name</h4>
+                        <div class="options d-flex flex-fill">
+                            <select class="custom-select mr-1">
+                                <option selected>Color</option>
+                                <option value="1">Green</option>
+                                <option value="2">Blue</option>
+                                <option value="3">Red</option>
+                            </select>
+                            <select class="custom-select ml-1">
+                                <option selected>Size</option>
+                                <option value="1">41</option>
+                                <option value="2">42</option>
+                                <option value="3">43</option>
+                            </select>
+                        </div>
+                        <div class="buy d-flex justify-content-between align-items-center">
+                            <div class="price text-success"><h5 class="mt-4">@product.Product_Price</h5></div>
+                            <a href="#" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

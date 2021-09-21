@@ -199,6 +199,18 @@
     <Content Include="Images\PopularProducts\pp7.jpg" />
     <Content Include="Images\PopularProducts\pp8.jpg" />
     <Content Include="Images\PopularProducts\pp9.jpg" />
+    <Content Include="Images\ProductImg\Boots\3910100000_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4044400000_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4044451655_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4125300079_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4125324067_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4125345009_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4125352564_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4145800000_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4161000000_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4161050000_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4414600000_lh.jpg" />
+    <Content Include="Images\ProductImg\Boots\4414645026_lh.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -344,11 +356,11 @@
     <Content Include="Views\User\LoginCustomer.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\AddCart.cshtml" />
-    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Product\GetProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\ProductImg\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
