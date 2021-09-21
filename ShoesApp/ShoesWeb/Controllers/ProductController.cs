@@ -14,6 +14,8 @@ namespace ShoesWeb.Controllers
 {
     public class ProductController : Controller
     {
+       
+
         // GET: Product
         ProductRepository repo;
         public ProductController()

@@ -21,7 +21,7 @@ namespace ShoesWeb.Controllers
             db = new UserModel();
             repo = new UserRepository(new UserModel());
         }
-     
+
         [HttpGet]
         public ActionResult RegisterCustomer()
         {
@@ -46,26 +46,24 @@ namespace ShoesWeb.Controllers
         }
         [HttpPost]
         public ActionResult LoginCustomer(User user)
-        {            
-        //    if (ModelState.IsValid)
-        //    {
+        {
 
-        //    }       
-        
             string username = repo.LoginCustomer(Mapper.Mapuser(user));
             if (!String.IsNullOrEmpty(username))
             {
                 var u_id = db.tb_users.Where(e => e.username == username).FirstOrDefault().user_id;
                 var role = db.tb_users.Where(e => e.username == username).FirstOrDefault().role;
 
-                if(role.ToLower() == "customer")
+                if (role.ToLower() == "customer")
                 {
                     var custid = db.tb_customers.Where(e => e.user_id == u_id).FirstOrDefault().customer_id;
-                    TempData["Customer_id"] = custid;
-                }               
-                
-                TempData["username"] = username;
-                TempData.Keep();
+                    Session["Customer_id"] = custid;
+                    // TempData["Customer_id"] = custid;
+                }
+                Session["username"] = username;
+                Session["role"] = role;
+                //TempData["username"] = username;
+                //TempData.Keep();
                 //var user1 = username;
                 return RedirectToAction("Index", "Home");
             }
@@ -76,6 +74,12 @@ namespace ShoesWeb.Controllers
             }
 
             return View(user);
+        }
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("LoginCustomer", "User");
         }
     }
 }

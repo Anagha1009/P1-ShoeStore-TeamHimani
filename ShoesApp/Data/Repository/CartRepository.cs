@@ -18,6 +18,7 @@ namespace Data.Repository
         UserModel um = new UserModel();
         public void AddCartItems(tb_cart cart,tb_cartdetails cartdetails,int? id,int cid)
         {
+            
             var cust = db.tb_cart.Where(e => e.customer_id == cid).FirstOrDefault();
             if (cust == null)
             {

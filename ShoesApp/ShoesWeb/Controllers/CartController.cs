@@ -12,6 +12,7 @@ namespace ShoesWeb.Controllers
 {
     public class CartController : Controller
     {
+        
         ProductRepository repo;
         CartRepository repo1;
         public CartController()
@@ -24,32 +25,39 @@ namespace ShoesWeb.Controllers
         //{
         //    return View();
         //}
+        
         [HttpGet]
         public ActionResult Index()
         {
-
-            //repo.GetProducts();
-            //return View();
-            var product = repo.GetProducts();
-
-            var data = new List<Product>();
-            foreach (var p in product)
+            if ((Session["username"] != null) && (Session["role"].ToString()=="customer"))
             {
-                data.Add(Mapper.Map(p));
+                //repo.GetProducts();
+                //return View();
+                var product = repo.GetProducts();
 
+                var data = new List<Product>();
+                foreach (var p in product)
+                {
+                    data.Add(Mapper.Map(p));
+
+                }
+                return View(data);
             }
-            return View(data);
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
+            }
         }
         [HttpGet]
-        public ActionResult AddCart(Cart cart,int? id,string cid)
+        public ActionResult AddCart(Cart cart,int? id)
         {
             //CartController ccc=new CartController();
             //HttpRequestBase req = ccc.HttpContext.Request;
             //int customer =Convert.ToInt32(req.Form.Get("lb_customerid"));
-            int c_id = Convert.ToInt32(cid);
-            
-           
-            repo1.AddCartItems(Mapper.Mapcart(cart), Mapper.Mapcartdetails(cart),id,c_id);
+            // int c_id = Convert.ToInt32(cid);
+
+           int cid = Convert.ToInt32(Session["Customer_id"]);
+            repo1.AddCartItems(Mapper.Mapcart(cart), Mapper.Mapcartdetails(cart),id,cid);
                 return View(cart);
 
             
