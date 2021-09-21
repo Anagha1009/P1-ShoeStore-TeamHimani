@@ -32,7 +32,5 @@ namespace Data.Entites
         public virtual tb_category tb_category { get; set; }
 
         public virtual tb_store tb_store { get; set; }
-
-        
     }
 }

@@ -21,8 +21,8 @@ namespace ShoesWeb.Controllers
             repo = new ProductRepository(new ProductModel());
         }
         // GET: Pet
-        public ActionResult Index()
-        {
+        public ActionResult Index(string username)
+        {           
             var product = repo.GetProducts();
 
             var data = new List<Product>();
@@ -31,6 +31,35 @@ namespace ShoesWeb.Controllers
                 data.Add(Mapper.Map(p));
 
             }
+
+            if (!String.IsNullOrEmpty(username))
+            {
+                string role = repo.CheckUserRole(username);
+
+                if (role.ToLower() == "admin")
+                {
+                    return View(data);
+                }
+                else
+                {
+                    return RedirectToAction("GetProducts", "Product");
+                }
+            }
+
+           return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult GetProducts()
+        {
+            var product = repo.GetProducts();
+
+            var data = new List<Product>();
+            foreach (var p in product)
+            {
+                data.Add(Mapper.Map(p));
+            }
+
             return View(data);
         }
         public ActionResult GetProductById(int? id)
@@ -89,7 +118,7 @@ namespace ShoesWeb.Controllers
                     if ((fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".png") && (filesize < 200))
                     {
                         products.product_image = products.product_id + "_" + Product_Image.FileName;
-                        string path = Path.Combine(Server.MapPath("~/Images/ProductImg"), products.product_image);
+                        string path = Path.Combine(Server.MapPath("~/Images/ProductImg/Boots"), products.product_image);
 
                         FileInfo imgfile = new FileInfo(path);
                         if (imgfile.Exists)
@@ -124,14 +153,17 @@ namespace ShoesWeb.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddProduct(Product products)
+        public ActionResult AddProduct(Product products,int[] colors)
         {
-            if (ModelState.IsValid)
-            {
-                repo.AddProduct(Mapper.Maps(products));
-                return RedirectToAction("Index");
-            }
-            return View(products);
+            //if (ModelState.IsValid)
+            //{
+
+            //}
+            
+            repo.AddProduct(products.ColorList, Mapper.Maps(products));           
+            
+            return RedirectToAction("Index");
+            //return View(products);
         }
 
     }

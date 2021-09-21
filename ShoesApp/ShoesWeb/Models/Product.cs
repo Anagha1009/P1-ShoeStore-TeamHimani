@@ -32,11 +32,11 @@ namespace ShoesWeb.Models
         [DataType(DataType.Upload)]
         [Required(ErrorMessage = "Please choose file to upload.")]
         public string Product_Image { get; set; }
-        public int Color_Id { get; set; }
+        public int? Color_Id { get; set; }
         public string Color { get; set; }
-        public int Size_Id { get; set; }
+        public int? Size_Id { get; set; }
         public decimal Size { get; set; }
-
+        public List<int> ColorList { set; get; }
     }
     
 }

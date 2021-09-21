@@ -1,47 +1,84 @@
 ﻿@model ShoesWeb.Models.User
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
 
 @{
     ViewBag.Title = "LoginCustomer";
 }
 
-<h2>LoginCustomer</h2>
+<style>
+    body {
+        background-image: url('/Images/BannerImg/blurbg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: 'Poppins', sans-serif;
+    }
 
-@using (Html.BeginForm()) 
+    .loginCard {
+        background-color: rgba(245, 245, 245, 0.5);
+        border-radius: 2rem;
+        border-color: darkgoldenrod;
+        margin-top: 6rem;
+    }
+
+    input[type=text], input[type=password], input[type=text]:focus {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid black;
+        border-radius: 0rem;
+    }
+
+    .form-control:focus {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        background: transparent;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css" />
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
+
+    <div class="col-lg-5 mx-auto">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.User_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.User_Name, "", new { @class = "text-danger" })
+        <div class="card loginCard">
+            <div class="card-body">
+                <h3 class="text-center mb-5">Login</h3>
+                <div class="form-group row">
+                    <label class="col-sm-4 text-right">User Name</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Username" } })
+                        @Html.ValidationMessageFor(model => model.User_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 text-right">Password</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            <div class="card-footer">
+                <div class="col-md-6 mx-auto mb-2">
+                    <input type="submit" value="Login" class="btn btn-info btn-block rounded-pill" />
+                </div>
+                <div class="col-md-6 mx-auto">
+                    <input type="button" value="New User?" class="btn btn-outline-dark btn-block rounded-pill" onclick="location.href='@Url.Action("RegisterCustomer", "User")'" />
+                </div>
             </div>
         </div>
         <div>
-            <label>@ViewBag.Error</label>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
+            @Html.Raw(@ViewBag.Error)
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index","Home")
-</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

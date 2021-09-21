@@ -22,8 +22,7 @@ namespace ShoesWeb.Models
                 Category_Name = product.tb_category.category_name,
                 Product_Price = product.product_price,
                 Product_Quantity = product.product_quantity,
-                Product_Image = product.product_image, 
-                
+                Product_Image = product.product_image,                 
                 
             };
         }

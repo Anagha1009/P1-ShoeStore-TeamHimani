@@ -11,16 +11,27 @@ namespace Data
 {
     public class ProductRepository : IProductRepository
     {
+        UserModel um = new UserModel();
         private ProductModel db;
         public ProductRepository(ProductModel db)
         {
             this.db = db;
         }
 
-        public void AddProduct(tb_products product)
+        public void AddProduct(List<int> colors,tb_products product)
         {
             db.tb_products.Add(product);
             Save();
+            int proid = db.tb_products.Max(p => p.product_id);
+            
+            for (int nCount = 0; nCount < colors.Count; nCount++)
+            {
+                tb_productcolor productcolor = new tb_productcolor();
+                productcolor.color_id = colors[nCount];
+                productcolor.product_id = proid;
+                db.tb_productcolor.Add(productcolor);
+                Save();
+            }          
         }
 
         public void DeleteProduct(int id)
@@ -105,6 +116,21 @@ namespace Data
             else
                 return pro;
         }
+
+        public string CheckUserRole(string username)
+        {
+            var role = um.tb_users.Where(e => e.username == username).FirstOrDefault().role;
+            
+            if(role != null)
+            {
+                return role;
+            }
+            else
+            {
+                return "";
+            }
+            throw new NotImplementedException();
+        }
         public IEnumerable<tb_category> getCategory()
         {
             return db.tb_category.ToList();
@@ -122,5 +148,6 @@ namespace Data
         {
             return db.tb_sizes.ToList();
         }
+
     }
 }
