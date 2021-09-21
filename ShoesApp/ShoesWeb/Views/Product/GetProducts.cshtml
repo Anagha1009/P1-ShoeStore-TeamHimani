@@ -3,14 +3,15 @@
 @{
     ViewBag.Title = "GetProducts";
 }
-
+<form>
+<label id="lb_customerid">@Session["Customer_id"]</label>
 <div class="container-fluid">
     <div class="row">
         @foreach (var product in Model)
         {
             <div class="col-md-3 col-sm-6 my-5">
                 <div class="card">
-                    @Html.HiddenFor(p => product.Product_Id)
+                    @Html.EditorFor(p => product.Product_Id)
                     <img class="card-img" src="@Url.Content("/Images/ProductImg/Boots/" + product.Product_Image)" alt="@product.Product_Image" height="300" width="100">
                     <div class="card-body">
                         <h4 class="card-title">@product.Product_Name</h4>
@@ -30,7 +31,8 @@
                         </div>
                         <div class="buy d-flex justify-content-between align-items-center">
                             <div class="price text-success"><h5 class="mt-4">@product.Product_Price</h5></div>
-                            <a href="#" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                            @*<a href="@Url.Action("AddCart", "Cart")",@, class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>*@
+                            @Html.ActionLink("Add To Cart", "AddCart","Cart", new { id = product.Product_Id }, new { @class = "btn btn-danger mt-3" })
                         </div>
                     </div>
                 </div>
@@ -38,3 +40,4 @@
         }
     </div>
 </div>
+    </form>
