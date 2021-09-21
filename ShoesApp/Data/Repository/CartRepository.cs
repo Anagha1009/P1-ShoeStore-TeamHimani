@@ -62,6 +62,28 @@ namespace Data.Repository
             
         }
 
+        //public  ViewCart(int? cid)
+        //{
+        //    return result = (from p in pm.tb_products
+        //                 join cd in db.tb_cartdetails on p.product_id equals cd.product_id
+        //                 join c in db.tb_cart on cd.cart_id equals c.cart_id
 
+        //                 where c.customer_id == 2
+        //                 select new
+        //                 {
+        //                     c.cart_id,
+        //                     c.total_bill,
+        //                     c.customer_id,
+        //                     c.store_id,
+        //                     cd.product_id,
+        //                     cd.quantity,
+        //                     p.product_name,
+        //                     p.product_image,
+        //                     p.product_quantity,
+        //                     p.product_price,
+        //                 });
+            
+
+        //}
     }
 }

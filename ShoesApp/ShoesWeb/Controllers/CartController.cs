@@ -62,6 +62,15 @@ namespace ShoesWeb.Controllers
 
             
         }
+        //[HttpGet]
+        //public ActionResult ViewCart(int? cid)
+        //{
+        //    repo1
+        
+
+
+        //}
+        //
         //[HttpPost]
         //public ActionResult AddCart(Cart cart)
         //{

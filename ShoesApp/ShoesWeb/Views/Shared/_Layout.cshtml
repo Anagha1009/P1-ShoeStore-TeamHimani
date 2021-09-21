@@ -37,9 +37,10 @@
                 
                 <ul class="navbar-nav ml-auto">
                     <li>
+                        @*<a href="@Url.Action("ViewCart", "Cart", new { username = Session["customer_id"] })" class="nav-link d-inline "><span class="fa fa-shopping-cart"></span></a>*@
                         <label class="d-inline text-danger">Hello @Session["username"]</label>
                         @*<a class="nav-link d-inline">@Html.ActionLink("Logout", "LoginCustomer")<span class="fa fa-sign-out"></span>Logout</a></li>*@
-                        <a href="@Url.Action("Logout", "User")" class="nav-link d-inline "><span class="fa fa-sign-out"></span>Logout</a>
+                        <a href="@Url.Action("Logout", "User") " class="nav-link d-inline "><span class="fa fa-sign-out"></span>Logout</a>
                     </li>
                 </ul>
             </div>
