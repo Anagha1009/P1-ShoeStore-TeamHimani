@@ -58,7 +58,7 @@ namespace ShoesWeb.Controllers
 
            int cid = Convert.ToInt32(Session["Customer_id"]);
             repo1.AddCartItems(Mapper.Mapcart(cart), Mapper.Mapcartdetails(cart),id,cid);
-                return View(cart);
+            return RedirectToAction("Index", "Cart");
 
             
         }
