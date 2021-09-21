@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 <form>
-    <label id="lb_customerid">@TempData["customer_id"]</label>
+    <label id="lb_customerid">@Session["Customer_id"]</label>
 
 
 <h3 class="text-center text-uppercase">List of Products</h3>
@@ -34,7 +34,7 @@
                     <td>@product.Product_Quantity</td>
                     <td><img src="@Url.Content("/Images/ProductImg/" + @product.Product_Image)" alt="@product.Product_Image" height="30" width="30" /></td>
                     <td>
-                        @Html.ActionLink("Add To Cart", "AddCart", new { id = product.Product_Id ,cid=TempData["customer_id"]}, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Add To Cart", "AddCart", new { id = product.Product_Id }, new { @class = "btn btn-info" })
                        
                     </td>
                 </tr>
