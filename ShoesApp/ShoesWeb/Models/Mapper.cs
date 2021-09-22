@@ -85,5 +85,21 @@ namespace ShoesWeb.Models
                 product_id=cart.Product_Id,
             };
         }
+
+        //To write data from view into database
+        public static tb_cartitem MapCartItem(CartItem cart)
+        {
+            return new tb_cartitem()
+            {
+                cart_id = cart.Cart_Id,
+                customer_id = cart.Customer_Id,
+                store_id = cart.Store_Id,
+                product_id = cart.Product_Id,
+                color=cart.Color,
+                size=cart.Size
+            };
+
+        }
+
     }
 }
