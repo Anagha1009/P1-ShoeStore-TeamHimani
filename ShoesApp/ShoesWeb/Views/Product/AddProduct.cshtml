@@ -8,155 +8,95 @@
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <h4 class="text-center mb-5 mt-3">Add New Product</h4>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="col-md-5 mx-auto">
-        @*@Html.ListBoxFor(model => model.ColorList, new MultiSelectList(Enumerable.Empty<SelectListItem>()))*@
-        @*var Model.ColorList = ""
-            @foreach(var c in Model.ColorList){
-                @Html.HiddenFor(model => model.ColorList[c])
-            }*@
-
-        @*@if (Model != null)
-        {
-            foreach (var m in Model.ColorList)
-            {
-                @Html.HiddenFor(model => model.ColorList[m])
-            }
-        }*@
-        <div class="form-group row">
-            @Html.LabelFor(model => model.Product_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Category_Id", "Category", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Category_Id, ViewBag.Category as SelectList, "Please select", new { @class = "form-control" })
-                @*@Html.EditorFor(model => model.Category_Name, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.ValidationMessageFor(model => model.Category_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Store_Id", "Store", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Store_Id, ViewBag.Store as SelectList, "Please select", new { @class = "form-control" })
-                @*@Html.EditorFor(model => model.Store_Name, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.ValidationMessageFor(model => model.Store_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Product_Price", "Price", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Product_Quantity", "Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Product_Image", "Image", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Product_Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Product_Image, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Color_Id", "Color", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Color_Id, ViewBag.Color as SelectList, new { @class = "form-control", @multiple = "", @placeholder = "Please Select" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.Label("Size_Id", "Size", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Size_Id, ViewBag.Size as SelectList, new { @class = "form-control", @multiple = "", @placeholder = "Please Select" })
-            </div>
-        </div>
-        <div class="form-group">
-            <br />
-            <br />
-            <div class="col-md-4 mx-auto">
-                <input id="submit" type="submit" value="Add" class="btn btn-info btn-block" />
-            </div>
-        </div>
-        <div>
-            @Html.ActionLink("Back to List", "Index")
+<div class="col-md-5 mx-auto">
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Product_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Name, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group row">
+        @Html.Label("Category_Id", "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Category_Id, ViewBag.Category as SelectList, "Please select", new { @class = "form-control" })
+            @*@Html.EditorFor(model => model.Category_Name, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.ValidationMessageFor(model => model.Category_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.Label("Store_Id", "Store", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Store_Id, ViewBag.Store as SelectList, "Please select", new { @class = "form-control" })
+            @*@Html.EditorFor(model => model.Store_Name, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.ValidationMessageFor(model => model.Store_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.Label("Product_Price", "Price", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.Label("Product_Quantity", "Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.Label("Product_Image", "Image", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+            @Html.ValidationMessageFor(model => model.Product_Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.Label("ColorList", "Color", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ColorList, ViewBag.Color as SelectList, new { @class = "form-control", @multiple = "", @placeholder = "Please Select" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.Label("SizeList", "Color", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SizeList, ViewBag.Size as SelectList, new { @class = "form-control", @multiple = "", @placeholder = "Please Select" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 mx-auto">
+            <input type="submit" value="Add" class="btn btn-info btn-block" />
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
 }
 <script>
     $(document).ready(function () {
-        $('#submit').click(function () {
-            var colorListVal = null;
-            colorListVal = [];
-            colorListVal = $('#Color_Id').val();
-            //$("#ColorList").val(colorListVal);
-            //alert($("#ColorList").val())
-            //$("#ColorList").append($("<option></option>").val(colorListVal[0]));
-            //$("#ColorList").append($("<option></option>").val(colorListVal[1]));
 
-            //var listItems = [];
-            //for (var key in colorListVal) {
-            //    listItems.push('<option value="' +
-            //        key + '">' + colorListVal[key]
-            //        + '</option>');
-            //}
-            //$("#ColorList").append(listItems.join(''));
-
-
-
-        //document.getElementById("ColorList").value = colorListVal;
-            //var viewModel = {
-            //    "Product_Name": document.getElementById("Product_Name").value,
-            //    "Category_Id": document.getElementById("Category_Id").value,
-            //}
-            //alert(document.getElementById("Product_Name").value);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("AddProduct", "Product")',
-                data: {
-                    /*'products': document.getElementById("Product_Name").value,*/
-                    'colors': colorListVal,
-                },
-                datatype: "json",
-                traditional: true,
-                success: function () {
-                    alert("test");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("jqXHR:" + jqXHR.status + " errorThrown: " + errorThrown);
-                }
-            });
-        })
-    });
-
-    $(document).ready(function () {
-
-        var multipleCancelButton = new Choices('#Size_Id', {
+        var multipleCancelButton = new Choices('#ColorList', {
             removeItemButton: true,
             //maxItemCount: 5,
             //searchResultLimit: 5,
             //renderChoiceLimit: 5
         });
 
-        var multipleCancelButton = new Choices('#Color_Id', {
+        var multipleCancelButton = new Choices('#SizeList', {
             removeItemButton: true,
+            //maxItemCount: 5,
+            //searchResultLimit: 5,
+            //renderChoiceLimit: 5
         });
     });
 </script>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

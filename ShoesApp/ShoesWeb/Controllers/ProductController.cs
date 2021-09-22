@@ -14,8 +14,6 @@ namespace ShoesWeb.Controllers
 {
     public class ProductController : Controller
     {
-       
-
         // GET: Product
         ProductRepository repo;
         public ProductController()
@@ -24,14 +22,13 @@ namespace ShoesWeb.Controllers
         }
         // GET: Pet
         public ActionResult Index(string username)
-        {           
+        {
             var product = repo.GetProducts();
 
             var data = new List<Product>();
             foreach (var p in product)
             {
                 data.Add(Mapper.Map(p));
-
             }
 
             if (!String.IsNullOrEmpty(username))
@@ -48,7 +45,7 @@ namespace ShoesWeb.Controllers
                 }
             }
 
-           return View(data);
+            return View(data);
         }
 
         [HttpGet]
@@ -155,18 +152,75 @@ namespace ShoesWeb.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddProduct(Product products,int[] colors)
+        public ActionResult AddProduct(Product products, HttpPostedFileBase Product_Image)
         {
             //if (ModelState.IsValid)
             //{
 
             //}
-            
-            repo.AddProduct(products.ColorList, Mapper.Maps(products));           
-            
+            int prodid = repo.GetMaxProductId();
+            int newproid = prodid + 1;
+
+            if (Product_Image != null)
+            {
+                string fileExtension = Path.GetExtension(Path.GetFileName(Product_Image.FileName));
+                decimal filesize = Math.Round(((decimal)Product_Image.ContentLength / (decimal)1024), 2);
+
+                if ((fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".png") && (filesize < 200))
+                {
+                    products.Product_Image = newproid + "_" + Product_Image.FileName;
+                    string path = Path.Combine(Server.MapPath("~/Images/ProductImg/Boots"), products.Product_Image);
+
+                    FileInfo imgfile = new FileInfo(path);
+                    if (imgfile.Exists)
+                    {
+                        imgfile.Delete();
+                    }
+
+                    Product_Image.SaveAs(path);
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Your file should be in .jpg, .png format and file size should be less than 200 kb!");
+                }
+            }
+
+            repo.AddProduct(Mapper.Maps(products));            
+
+            List<int> cl = products.ColorList;
+
+            if(cl != null)
+            {
+                foreach (var pcc in cl)
+                {
+                    List<tb_productcolor> productColors = new List<tb_productcolor>(){
+                                    new tb_productcolor() { color_id = pcc, product_id = prodid}
+                                    };
+
+                    ProductModel pm = new ProductModel();
+                    pm.tb_productcolor.AddRange(productColors);
+                    pm.SaveChanges();
+                }
+            }            
+
+            List<int> sl = products.SizeList;
+
+            if(sl != null)
+            {
+                foreach (var pcc in sl)
+                {
+                    List<tb_productsize> productSizess = new List<tb_productsize>(){
+                                    new tb_productsize() { size_id = pcc, product_id = prodid}
+                                    };
+
+                    ProductModel pm = new ProductModel();
+                    pm.tb_productsize.AddRange(productSizess);
+                    pm.SaveChanges();
+                }
+            }           
+
             return RedirectToAction("Index");
             //return View(products);
         }
-
     }
 }

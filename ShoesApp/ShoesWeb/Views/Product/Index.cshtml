@@ -2,14 +2,15 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
 <h3 class="text-center text-uppercase mt-3">List of Products</h3>
 <div class="container-fluid">
     <p>
         @Html.ActionLink("Add New Product", "AddProduct", new { controller = "Product" }, new { hidefocus = "hidefocus", @class = "btn btn-primary" })
     </p>
-    <div class="col-md-10 mx-md-auto">
-        <table class="table table-bordered text-center w-100">
+    <div class="">
+        <table id="productTable" class="table table-bordered text-center w-100">
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(m => m.Product_Id)</th>
@@ -45,4 +46,10 @@
         </table>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('#productTable').DataTable();
+</script>
 

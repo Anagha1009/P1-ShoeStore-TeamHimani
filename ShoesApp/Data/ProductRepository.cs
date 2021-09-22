@@ -18,25 +18,21 @@ namespace Data
             this.db = db;
         }
 
-        public void AddProduct(List<int> colors,tb_products product)
+        public void AddProduct(tb_products product)
         {
             db.tb_products.Add(product);
             Save();
-            int proid = db.tb_products.Max(p => p.product_id);
-            
-            for (int nCount = 0; nCount < colors.Count; nCount++)
-            {
-                tb_productcolor productcolor = new tb_productcolor();
-                productcolor.color_id = colors[nCount];
-                productcolor.product_id = proid;
-                db.tb_productcolor.Add(productcolor);
-                Save();
-            }          
+
+        }
+
+        public int GetMaxProductId()
+        {
+            int id = db.tb_products.Max(cc => cc.product_id);
+            return id;
         }
 
         public void DeleteProduct(int id)
-        {
-            
+        {            
             var pro = db.tb_products.Find(id);
             if (pro != null)
             {
@@ -147,7 +143,6 @@ namespace Data
         public IEnumerable<tb_sizes> getSize()
         {
             return db.tb_sizes.ToList();
-        }
-
+        }       
     }
 }
