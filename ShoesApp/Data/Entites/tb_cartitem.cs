@@ -21,5 +21,7 @@ namespace Data.Entites
         public string color { get; set; }
 
         public decimal? size { get; set; }
+
+        public virtual tb_products tb_products {get; set;}
     }
 }

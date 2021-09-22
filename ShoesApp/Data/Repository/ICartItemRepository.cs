@@ -10,5 +10,7 @@ namespace Data.Repository
     interface ICartItemRepository
     {
         void AddCartItems(tb_cartitem cartitems, int? id, int cid);
+
+        IEnumerable<tb_cartitem> ViewCartItems(int cid);
     }
 }
