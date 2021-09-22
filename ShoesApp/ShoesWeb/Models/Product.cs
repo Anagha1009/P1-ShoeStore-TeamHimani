@@ -37,6 +37,7 @@ namespace ShoesWeb.Models
         public int? Size_Id { get; set; }
         public decimal Size { get; set; }
         public List<int> ColorList { set; get; }
+        public List<int> SizeList { set; get; }
     }
     
 }
