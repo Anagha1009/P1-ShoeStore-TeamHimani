@@ -101,5 +101,22 @@ namespace ShoesWeb.Models
 
         }
 
+        public static CartItem MapViewCart(tb_cartitem cart)
+        {
+
+            return new CartItem()
+            {
+                Cart_Id = cart.cart_id,
+                Color = cart.color,
+                Customer_Id = cart.customer_id,
+                Size = cart.size,
+                Store_Id = cart.store_id,
+                Product_Id = cart.product_id,
+                Product_Image = cart.tb_products.product_image,
+                Product_Name = cart.tb_products.product_name,
+                Product_Price = cart.tb_products.product_price
+            };
+        }
+
     }
 }
