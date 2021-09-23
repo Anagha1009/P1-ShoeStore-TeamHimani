@@ -16,6 +16,7 @@ namespace ShoesWeb.Controllers
         private CartItemModel cm;
         OrderRepository repo;
         CartItemRepository repo1;
+
         public OrderController()
         {
             db = new OrderModel();
@@ -27,41 +28,47 @@ namespace ShoesWeb.Controllers
         [HttpGet]
         public ActionResult PlaceOrder(Order order)
         {
-            int cid = Convert.ToInt32(Session["Customer_id"]);
-            
-            var d = cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid).ToList();
-
-            int nCount = 0;
-            foreach(var t in d)
+            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
             {
-                var check = repo.CheckInventory(t.product_id);
-
-                if (!check)
+                int cid = Convert.ToInt32(Session["Customer_id"]);
+                var d = cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid).ToList();
+                int nCount = 0;
+                foreach(var t in d)
                 {
-                    nCount++;
+                    var check = repo.CheckInventory(t.product_id);
+
+                    if (!check)
+                    {
+                        nCount++;
+                    }
                 }
-            }
 
-            if(nCount == 0)
-            {
-                repo.PlaceOrder(Mapper.MapOrder(order), Mapper.MapOrderDetails(order), cid);
-
-                foreach (var v in d)
+                if(nCount == 0)
                 {
-                    repo.DeleteInventory(v.product_id);
-                    repo1.DeleteCart(v.cart_id);
+                    repo.PlaceOrder(Mapper.MapOrder(order), Mapper.MapOrderDetails(order), cid);
+
+                    foreach (var v in d)
+                    {
+                        repo.DeleteInventory(v.product_id);
+                        repo1.DeleteCart(v.cart_id);
+                    }
+                    repo1.Save();
+                    repo.Save();
+
+                    return RedirectToAction("ViewCart", "CartItem");
                 }
-                repo1.Save();
-                repo.Save();
+                else
+                {
+                    //out of stock
+                }
 
                 return RedirectToAction("ViewCart", "CartItem");
             }
             else
             {
-                //out of stock
+                return RedirectToAction("LoginCustomer", "User");
             }
-
-            return RedirectToAction("ViewCart", "CartItem");
+            
 
             //repo.DeleteCart(cid);
 
@@ -71,16 +78,66 @@ namespace ShoesWeb.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            int cid = Convert.ToInt32(Session["Customer_id"]);
-            var result = repo.ViewOrder(cid);
-
-            var data = new List<Order>();
-            foreach (var p in result)
+            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
             {
-                data.Add(Mapper.MapViewOrder(p));
+                int cid = Convert.ToInt32(Session["Customer_id"]);
+                var result = repo.ViewOrder(cid);
+
+                var data = new List<Order>();
+                foreach (var p in result)
+                {
+                    data.Add(Mapper.MapViewOrder(p));
+                }
+
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
+            }
+            
+        }
+
+        [HttpGet]
+        public ActionResult AllOrder(int? id)
+        {
+                if ((Session["username"] != null) && (Session["role"].ToString() == "admin"))
+            {
+                ViewBag.Store = new SelectList(repo.getStore(), "store_id", "store_name");
+                var data1 = repo.GetOrder();
+                var data = new List<Order>();
+                foreach (var p in data1)
+                {
+                    data.Add(Mapper.MapViewOrder(p));
+
+                }
+                if (id==null)
+                {
+                    
+                }
+                else
+                {
+                    data = data.Where(x => x.Store_Id==id).ToList();
+                }
+                //var data = repo.Or(id);
+                //return View(data);
+                //int cid = Convert.ToInt32(Session["Customer_id"]);
+                //var result = repo.ViewOrder(cid);
+
+                //var data = new List<Order>();
+                //foreach (var p in result)
+                //{
+                //    data.Add(Mapper.MapViewOrder(p));
+                //}
+
+                //return View(data);
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
             }
 
-            return View(data);
         }
     }
 }

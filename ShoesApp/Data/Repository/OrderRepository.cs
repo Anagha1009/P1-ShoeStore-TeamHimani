@@ -132,5 +132,18 @@ namespace Data.Repository
                 return false;
             }
         }
+
+        public IEnumerable<tb_order> GetOrder()
+        {
+            return db.tb_order
+                .ToList();
+        }
+
+        public IEnumerable<tb_store> getStore()
+        {
+            return pm.tb_store.ToList();
+        }
     }
+
+
 }

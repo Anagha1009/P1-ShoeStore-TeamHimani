@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ShoesWeb.Models.User>
+
+@{
+    ViewBag.Title = "GetCustomer";
+}
+
+
+
+<style>
+    tr:hover {
+        background-color: rgb(132 132 132 / 0.80);
+    }
+
+    th {
+        background-color: black;
+        color: azure;
+    }
+</style>
+
+<h3 class="text-center text-uppercase">List of Customers</h3>
+<div class="container">
+    
+
+    @using (Html.BeginForm("GetCustomer", "User", FormMethod.Get))
+    {
+<span>Customer Name:</span> @Html.TextBox("name")
+                <input type="submit" value="Search" />
+    }
+   
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Contact)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_Contact)
+                </td>
+                
+            </tr>
+        }
+
+
+    </table>
+
+    </div>

@@ -16,16 +16,19 @@ namespace Data.Repository
         {
             this.db = db;
         }
-        public void AddCartItems(tb_cartitem cartitems, int? id, int cid)
+        public int? AddCartItems(tb_cartitem cartitems, int? id, int cid,int? Color,int? Size)
         {
+
             cartitems.customer_id = cid;
-            cartitems.store_id = pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().store_id;
+            int? storeid = pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().store_id;
+            cartitems.store_id = storeid;
             cartitems.product_id = id;
-            cartitems.color = "Blue";
-            cartitems.size = 7;
+            cartitems.color = pm.tb_color.Where(e => e.color_id == Color).FirstOrDefault().color;
+            cartitems.size = pm.tb_sizes.Where(e => e.size_id == Size).FirstOrDefault().size;
             cartitems.product_price = pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().product_price;
             db.tb_cartitem.Add(cartitems);
             Save();
+            return storeid;
         }
         public void Save()
         {

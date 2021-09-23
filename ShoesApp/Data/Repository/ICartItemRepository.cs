@@ -9,7 +9,7 @@ namespace Data.Repository
 {
     interface ICartItemRepository
     {
-        void AddCartItems(tb_cartitem cartitems, int? id, int cid);
+        int? AddCartItems(tb_cartitem cartitems, int? id, int cid, int? Color, int? Size);
 
         IEnumerable<tb_cartitem> ViewCartItems(int cid);
 

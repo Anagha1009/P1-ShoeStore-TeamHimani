@@ -15,6 +15,7 @@ namespace ShoesWeb.Controllers
         // GET: User
         private UserModel db;
 
+
         UserRepository repo;
         public UserController()
         {
@@ -34,7 +35,7 @@ namespace ShoesWeb.Controllers
             if (ModelState.IsValid)
             {
                 repo.RegisterCustomer(Mapper.Mapuser(user), Mapper.Mapcust(user));
-                return RedirectToAction("Index,Home");
+                return RedirectToAction("LoginCustomer","User");
             }
             return View(user);
         }
@@ -80,6 +81,34 @@ namespace ShoesWeb.Controllers
         {
             Session.Abandon();
             return RedirectToAction("LoginCustomer", "User");
+        }
+
+
+        //nikita
+        public ActionResult GetCustomer(string name)
+        {
+            if ((Session["username"] != null) && (Session["role"].ToString() == "admin"))
+            {
+                var data1 = repo.GetCustomer();
+                var data = new List<User>();
+                foreach (var p in data1)
+                {
+                    data.Add(Mapper.MapCustomer(p));
+
+                }
+                if (name != null)
+                {
+                    data = data.Where(x => x.Customer_Name.Contains(name)).ToList();
+                }
+                //var data = repo.GetCustomerByName(name);
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
+            }
+            
+
         }
     }
 }

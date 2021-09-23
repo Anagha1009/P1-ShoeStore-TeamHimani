@@ -15,19 +15,30 @@ namespace ShoesWeb.Models
         public string User_Name { get; set; }
 
         [Required(ErrorMessage = "Please enter Password")]
+
+        
         public string Password { get; set; }
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
         public string Role { get; set; }
         public int Customer_Id { get; set; }
 
         [Required(ErrorMessage = "Please enter Name")]
         public string Customer_Name { get; set; }
 
+        [RegularExpression(@"\A(?:[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'+/=?^_`{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                            ErrorMessage = "Please enter a valid email address")]
         [Required(ErrorMessage = "Please enter Email")]
         public string Customer_Email { get; set; }
 
         [Required(ErrorMessage = "Please enter Contact")]
+
+        [StringLength(10, ErrorMessage = "Contact No. must contains 10 characters", MinimumLength = 10)]
         public string Customer_Contact { get; set; }
 
+        
+
     }
-   
+    
+
 }

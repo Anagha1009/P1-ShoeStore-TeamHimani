@@ -157,5 +157,20 @@ namespace ShoesWeb.Models
             };
         }
 
+        //nikita
+
+        public static User MapCustomer(tb_customers customer)
+        {
+
+            return new User()
+            {
+                Customer_Id = customer.customer_id,
+                Customer_Name = customer.customer_name,
+                Customer_Contact = customer.customer_contact,
+                Customer_Email = customer.customer_email,
+
+            };
+        }
+
     }
 }

@@ -59,7 +59,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 text-right">Password</label>
                     <div class="col-sm-8">
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new {@type="password", @class = "form-control", @placeholder = "Enter Password" } })
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>

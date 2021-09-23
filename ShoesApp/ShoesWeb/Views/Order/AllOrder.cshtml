@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ShoesWeb.Models.Order>
+
+@{
+    ViewBag.Title = "AllOrder";
+}
+
+
+
+<div class="container">
+
+    <h2>AllOrder</h2>
+
+    @using (Html.BeginForm("AllOrder", "Order", FormMethod.Get))
+    {
+        <span>Customer Name:</span> @Html.DropDownList("id" ,ViewBag.Store as SelectList, "Please select", new { @class = "form-control" })
+        <input type="submit" value="Search" />
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_Id)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalBill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order_Id)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalBill)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>

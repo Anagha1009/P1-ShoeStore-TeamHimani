@@ -16,7 +16,6 @@ namespace ShoesWeb.Models
         [Required(ErrorMessage = "Please enter Product Name")]
         public string Product_Name { get; set; }        
         public int? Category_Id { get; set; }
-
         public string Category_Name { get; set; }        
         public int? Store_Id { get; set; }
 
@@ -30,7 +29,6 @@ namespace ShoesWeb.Models
         public int Product_Quantity { get; set; }        
 
         [DataType(DataType.Upload)]
-        [Required(ErrorMessage = "Please choose file to upload.")]
         public string Product_Image { get; set; }
         public int? Color_Id { get; set; }
         public string Color { get; set; }

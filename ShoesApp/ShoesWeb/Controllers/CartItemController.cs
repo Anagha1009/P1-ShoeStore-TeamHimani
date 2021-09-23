@@ -23,35 +23,62 @@ namespace ShoesWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddCart(CartItem cart,int? id)
+        public ActionResult AddCart(CartItem cart,int? pid,int? Color,int? Size)
         {
-            int cid = Convert.ToInt32(Session["Customer_id"]);
-            repo.AddCartItems(Mapper.MapCartItem(cart), id, cid);
-            return RedirectToAction("GetProducts", "Product");
+            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
+            {
+                
+                int cid = Convert.ToInt32(Session["Customer_id"]);
+                int? storeid=repo.AddCartItems(Mapper.MapCartItem(cart), pid, cid,Color,Size);
+                return RedirectToAction("GetProducts", "Product", new { id=storeid });
+
+            }
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
+            }
+     
         }
 
         [HttpGet]
         public ActionResult ViewCart()
         {
-            int cid = Convert.ToInt32(Session["Customer_id"]);
-            var result = repo.ViewCartItems(cid);           
-           
-            var data = new List<CartItem>();
-            
-            foreach (var p in result)
+            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
             {
-                data.Add(Mapper.MapViewCart(p));
-            }
+                int cid = Convert.ToInt32(Session["Customer_id"]);
+                var result = repo.ViewCartItems(cid);           
+           
+                var data = new List<CartItem>();
+            
+                foreach (var p in result)
+                {
+                    data.Add(Mapper.MapViewCart(p));
+                }
 
-            return View(data);
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
+            }
+            
         }
 
         [HttpGet]
         public ActionResult DeleteCartById(int id)
         {
-            repo.DeleteCart(id);
-            repo.Save();
-            return RedirectToAction("ViewCart", "CartItem");
+            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
+            {
+                repo.DeleteCart(id);
+                repo.Save();
+                return RedirectToAction("ViewCart", "CartItem");
+
+            }
+            else
+            {
+                return RedirectToAction("LoginCustomer", "User");
+            }
+            
 
         }
     }

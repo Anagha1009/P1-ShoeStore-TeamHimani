@@ -25,6 +25,7 @@ namespace ShoesWeb.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            
             if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
             {
                 var product = repo.GetProducts();
@@ -41,6 +42,7 @@ namespace ShoesWeb.Controllers
             {
                 return RedirectToAction("LoginCustomer", "User");
             }
+            
         }
         [HttpGet]
         public ActionResult AddCart(Cart cart, int? id)

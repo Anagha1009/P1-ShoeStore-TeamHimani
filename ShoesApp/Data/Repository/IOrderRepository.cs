@@ -18,5 +18,9 @@ namespace Data.Repository
         void DeleteInventory(int? pid);
 
         bool CheckInventory(int? pid);
+
+        IEnumerable<tb_order> GetOrder();
+
+        IEnumerable<tb_store> getStore();
     }
 }
