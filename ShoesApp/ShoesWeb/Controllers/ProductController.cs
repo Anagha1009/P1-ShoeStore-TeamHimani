@@ -31,19 +31,19 @@ namespace ShoesWeb.Controllers
                 data.Add(Mapper.Map(p));
             }
 
-            if (!String.IsNullOrEmpty(username))
-            {
-                string role = repo.CheckUserRole(username);
+            //if (!String.IsNullOrEmpty(username))
+            //{
+            //    string role = repo.CheckUserRole(username);
 
-                if (role.ToLower() == "admin")
-                {
-                    return View(data);
-                }
-                else
-                {
-                    return RedirectToAction("GetProducts", "Product");
-                }
-            }
+            //    if (role.ToLower() == "admin")
+            //    {
+            //        return View(data);
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("GetProducts", "Product");
+            //    }
+            //}
 
             return View(data);
         }

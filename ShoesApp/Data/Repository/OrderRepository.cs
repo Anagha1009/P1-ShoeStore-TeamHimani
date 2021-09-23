@@ -41,24 +41,30 @@ namespace Data.Repository
                     Save();
                 }
 
-               //foreach(var p in prodid)
-               // {
-               //     var pro = cm.tb_cartitem.Find(p.cart_id);
+                
 
-               //     if (pro != null)
-               //     {
-               //         cm.tb_cartitem.Remove(pro);
-               //         Save();
+                //Save();
+                //var xe = d;
+                //foreach (var p in prodid)
+                //{
+                //    var pro = cm.tb_cartitem.Find(p.cart_id);
 
-               //     }
-               // }
+                //    if (pro != null)
+                //    {
+                        
+                //        cm.tb_cartitem.RemoveAll(pro);
+                //        Save();
+                //    }
+                //}
 
-                foreach (tb_cartitem log in cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid))
-                {
-                    cm.tb_cartitem.Remove(log);
-                    
-                }
-                Save();
+                
+
+                //foreach (tb_cartitem log in cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid))
+                //{
+                //    cm.tb_cartitem.Remove(log);
+
+                //}
+                //Save();
             }
         }
 
@@ -67,8 +73,6 @@ namespace Data.Repository
             if (cid > 0)
             {
                 var pro = db.tb_order
-
-                    .Include(c => c.tb_orderdetails)
                     .Where(c => c.customer_id == cid).ToList();
                 if (pro != null)
                     return pro;
@@ -85,6 +89,48 @@ namespace Data.Repository
         {
             db.SaveChanges();
 
+        }
+
+        //public void DeleteCart(int cid)
+        //{
+        //    var d = cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid).ToList();
+
+        //    foreach(var v in d)
+        //    {
+        //        var pro = cm.tb_cartitem.Find(v.cart_id);
+        //        if (pro != null)
+        //        {
+        //            cm.tb_cartitem.Remove(pro);
+        //            Save();
+
+        //        }
+        //        else
+        //            throw new ArgumentException("product is not found");
+        //    }            
+        //}
+
+        public void DeleteInventory(int? pid)
+        {
+            //var quantity = pm.tb_products.Where<tb_products>(p => p.product_id == pid).FirstOrDefault();
+            //quantity.product_quantity = quantity.product_quantity - 1;
+
+            var pro = pm.tb_products.Find(pid);
+            pro.product_quantity = pro.product_quantity - 1;
+            pm.SaveChanges();
+        }
+
+        public bool CheckInventory(int? pid)
+        {
+            var quantity = pm.tb_products.Where<tb_products>(p => p.product_id == pid).FirstOrDefault().product_quantity;
+
+            if(quantity > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

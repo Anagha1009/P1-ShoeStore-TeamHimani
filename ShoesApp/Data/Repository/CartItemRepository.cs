@@ -30,7 +30,6 @@ namespace Data.Repository
         public void Save()
         {
             db.SaveChanges();
-
         }
 
         public IEnumerable<tb_cartitem> ViewCartItems(int cid)
@@ -53,6 +52,19 @@ namespace Data.Repository
             {
                 throw new ArgumentException("Id cannot be less than 0");
             }
+        }
+
+        public void DeleteCart(int id)
+        {
+            var pro = db.tb_cartitem.Find(id);
+            if (pro != null)
+            {
+                db.tb_cartitem.Remove(pro);
+                Save();
+
+            }
+            else
+                throw new ArgumentException("product is not found");
         }
     }
 }

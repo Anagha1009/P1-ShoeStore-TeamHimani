@@ -37,7 +37,9 @@
                                 <label>Size: @Html.DisplayFor(modelItem => item.Size)</label><br />
                                 <label><i class="fas fa-rupee-sign"></i> @Html.DisplayFor(modelItem => item.Product_Price)</label><br />
                                 <label>Color : @Html.DisplayFor(modelItem => item.Color)</label><br />
-                                @Html.ActionLink("Remove", "Edit", new { /* id=item.PrimaryKey */ })
+                                @*@Html.ActionLink("Remove", "DeleteCartById", "CartItem", new { id = item.Cart_Id, hidefocus = "hidefocus" })*@
+                                @Html.ActionLink("Remove", "DeleteCartById", new { id = item.Cart_Id })
+
                             </div>
                         </div>
                     }

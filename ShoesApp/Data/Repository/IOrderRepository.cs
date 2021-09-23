@@ -11,8 +11,12 @@ namespace Data.Repository
     {
         IEnumerable<tb_order> ViewOrder(int cid);
 
-        void PlaceOrder(tb_order order,tb_orderdetails orderdetails, int cid);
+        void PlaceOrder(tb_order order, tb_orderdetails orderdetails, int cid);
 
         void Save();
+
+        void DeleteInventory(int? pid);
+
+        bool CheckInventory(int? pid);
     }
 }

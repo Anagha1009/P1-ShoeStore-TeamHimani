@@ -149,11 +149,11 @@ namespace ShoesWeb.Models
                 TotalBill = order.total_bill,
                 Date = order.date,
                 Customer_Id = order.customer_id,
-                Product_Name = order.tb_orderdetails.tb_products.product_name,
-                Product_Price = order.tb_orderdetails.tb_products.product_price,
+                //Product_Name = order.tb_orderdetails.tb_products.product_name,
+                //Product_Price = order.tb_orderdetails.tb_products.product_price,
                 Store_Id = order.store_id,
-                Product_Id = order.tb_orderdetails.product_id,
-                Order_IdF = order.tb_orderdetails.order_id,
+                //Product_Id = order.tb_orderdetails.product_id,
+                //Order_IdF = order.tb_orderdetails.order_id,
             };
         }
 

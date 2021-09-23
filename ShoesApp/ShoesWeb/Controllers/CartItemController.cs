@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Data.Repository;
 using Data.Entites;
 using ShoesWeb.Models;
+using System.IO;
+using System.Net;
 
 namespace ShoesWeb.Controllers
 {
@@ -42,6 +44,15 @@ namespace ShoesWeb.Controllers
             }
 
             return View(data);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCartById(int id)
+        {
+            repo.DeleteCart(id);
+            repo.Save();
+            return RedirectToAction("ViewCart", "CartItem");
+
         }
     }
 }
