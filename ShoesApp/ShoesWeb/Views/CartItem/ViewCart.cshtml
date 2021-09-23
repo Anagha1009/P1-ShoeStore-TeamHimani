@@ -4,78 +4,87 @@
     ViewBag.Title = "ViewCart";
 }
 
-<h2>ViewCart</h2>
+<style>
+    .card {
+        /*/ Add shadows to create the "card" effect /*/
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Cart_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Store_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Product_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Size)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Product_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Product_Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Product_Price)
-        </th>
-        <th></th>
-    </tr>
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+</style>
+<div class="container mt-5">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cart_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Store_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product_Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5>My Cart</h5>
+                </div>
+                <div class="card-body" style="overflow-y: scroll; height: 28rem">
+                    @foreach (var item in Model)
+                    {
+                        <div class="media pb-4 pt-2">
+                            <img class="align-self-center mr-3" src="@Url.Content("/Images/ProductImg/Boots/" + item.Product_Image)" height="130" width="130" />
+                            <div class="media-body">
+                                @Html.HiddenFor(modelItem => item.Cart_Id)
+                                @Html.HiddenFor(modelItem => item.Customer_Id)
+                                @Html.HiddenFor(modelItem => item.Store_Id)
+                                @Html.HiddenFor(modelItem => item.Product_Id)
+                                <label><b>@Html.DisplayFor(modelItem => item.Product_Name)</b></label><br />
+                                <label>Size: @Html.DisplayFor(modelItem => item.Size)</label><br />
+                                <label><i class="fas fa-rupee-sign"></i> @Html.DisplayFor(modelItem => item.Product_Price)</label><br />
+                                <label>Color : @Html.DisplayFor(modelItem => item.Color)</label><br />
+                                @Html.ActionLink("Remove", "Edit", new { /* id=item.PrimaryKey */ })
+                            </div>
+                        </div>
+                    }
 
-</table>
+                </div>
+                <div class="card-footer text-right">
+                    @Html.ActionLink("Place Order", "PlaceOrder", "Order", new { controller = "Order" }, new { hidefocus = "hidefocus", @class = "btn btn-dark" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="text-light" style="color: #878787 !important">PRICE DETAILS</h5>
+                </div>
+                @if (Model.Any())
+                {
+
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Price (@Model.Count() item)</label>
+                            </div>
+
+                            <div class="col text-right">
+                                <label><i class="fas fa-rupee-sign"></i>@Model.Sum(v => v.Product_Price)</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Delivery Charges</label>
+                            </div>
+                            <div class="col text-right">
+                                <label><i class="fas fa-rupee-sign"></i> 0</label>
+                            </div>
+                        </div>
+                        <div class="form-group row border-top pt-3">
+                            <div class="col">
+                                <label><b>Total Amount</b></label>
+                            </div>
+                            <div class="col text-right">
+                                <label><b><i class="fas fa-rupee-sign"></i>@Model.Sum(v => v.Product_Price)</b></label>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

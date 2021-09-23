@@ -6,23 +6,15 @@ namespace Data.Entites
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tb_cartitem
+    public partial class tb_orderdetails
     {
         [Key]
-        public int cart_id { get; set; }
-
-        public int? customer_id { get; set; }
-
-        public int? store_id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int order_id { get; set; }
 
         public int? product_id { get; set; }
 
-        [StringLength(10)]
-        public string color { get; set; }
-
-        public decimal? size { get; set; }
-
-        public decimal? product_price { get; set; }
+        public virtual tb_order tb_order { get; set; }
 
         public virtual tb_products tb_products { get; set; }
     }

@@ -140,9 +140,24 @@ namespace Data
         {
             return db.tb_color.ToList();
         }
+        
         public IEnumerable<tb_sizes> getSize()
         {
             return db.tb_sizes.ToList();
-        }       
+        }
+
+        public bool CheckColorAvailability(int selectedid, int productid)
+        {
+            var id = db.tb_productcolor.Where(e => e.color_id == selectedid && e.product_id == productid).FirstOrDefault();
+
+            if(id != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

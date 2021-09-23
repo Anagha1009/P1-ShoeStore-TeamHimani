@@ -56,6 +56,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Entites\CartItemModel.cs" />
     <Compile Include="Entites\CartModel.cs" />
+    <Compile Include="Entites\OrderModel.cs" />
     <Compile Include="Entites\ProductModel.cs" />
     <Compile Include="Entites\tb_admins.cs" />
     <Compile Include="Entites\tb_cart.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="Entites\tb_category.cs" />
     <Compile Include="Entites\tb_color.cs" />
     <Compile Include="Entites\tb_customers.cs" />
+    <Compile Include="Entites\tb_order.cs" />
+    <Compile Include="Entites\tb_orderdetails.cs" />
     <Compile Include="Entites\tb_productcolor.cs" />
     <Compile Include="Entites\tb_products.cs" />
     <Compile Include="Entites\tb_productsize.cs" />
@@ -79,6 +82,8 @@
     <Compile Include="Repository\ICartItemRepository.cs" />
     <Compile Include="Repository\ICartRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\IOrderRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -179,6 +179,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CartItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,6 +188,7 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Mapper.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -382,6 +384,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\ProductImg\Boots\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

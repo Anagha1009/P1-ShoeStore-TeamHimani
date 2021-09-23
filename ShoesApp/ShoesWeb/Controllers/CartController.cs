@@ -12,7 +12,7 @@ namespace ShoesWeb.Controllers
 {
     public class CartController : Controller
     {
-        
+
         ProductRepository repo;
         CartRepository repo1;
         public CartController()
@@ -20,19 +20,13 @@ namespace ShoesWeb.Controllers
             repo = new ProductRepository(new ProductModel());
             repo1 = new CartRepository(new CartModel());
         }
-        //// GET: Cart
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-        
+        // GET: Cart
+
         [HttpGet]
         public ActionResult Index()
         {
-            if ((Session["username"] != null) && (Session["role"].ToString()=="customer"))
+            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
             {
-                //repo.GetProducts();
-                //return View();
                 var product = repo.GetProducts();
 
                 var data = new List<Product>();
@@ -49,38 +43,11 @@ namespace ShoesWeb.Controllers
             }
         }
         [HttpGet]
-        public ActionResult AddCart(Cart cart,int? id)
+        public ActionResult AddCart(Cart cart, int? id)
         {
-            //CartController ccc=new CartController();
-            //HttpRequestBase req = ccc.HttpContext.Request;
-            //int customer =Convert.ToInt32(req.Form.Get("lb_customerid"));
-            // int c_id = Convert.ToInt32(cid);
-
-           int cid = Convert.ToInt32(Session["Customer_id"]);
-            repo1.AddCartItems(Mapper.Mapcart(cart), Mapper.Mapcartdetails(cart),id,cid);
+            int cid = Convert.ToInt32(Session["Customer_id"]);
+            repo1.AddCartItems(Mapper.Mapcart(cart), Mapper.Mapcartdetails(cart), id, cid);
             return RedirectToAction("Index", "Cart");
-
-            
         }
-        //[HttpGet]
-        //public ActionResult ViewCart(int? cid)
-        //{
-        //    repo1
-        
-
-
-        //}
-        //
-        //[HttpPost]
-        //public ActionResult AddCart(Cart cart)
-        //{
-        //    if(ModelState.IsValid)
-        //    {
-        //        repo1.AddCartItems(Mapper.Mapcart(cart),Mapper.Mapcartdetails(cart));
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(cart);
-        //}
-
     }
 }

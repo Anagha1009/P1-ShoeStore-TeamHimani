@@ -3,41 +3,46 @@
 @{
     ViewBag.Title = "GetProducts";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <form>
-<label id="lb_customerid">@Session["Customer_id"]</label>
-<div class="container-fluid">
-    <div class="row">
-        @foreach (var product in Model)
-        {
-            <div class="col-md-3 col-sm-6 my-5">
-                <div class="card">
-                    @Html.EditorFor(p => product.Product_Id)
-                    <img class="card-img" src="@Url.Content("/Images/ProductImg/Boots/" + product.Product_Image)" alt="@product.Product_Image" height="300" width="100">
-                    <div class="card-body">
-                        <h4 class="card-title">@product.Product_Name</h4>
-                        <div class="options d-flex flex-fill">
-                            <select class="custom-select mr-1">
-                                <option selected>Color</option>
-                                <option value="1">Green</option>
-                                <option value="2">Blue</option>
-                                <option value="3">Red</option>
-                            </select>
-                            <select class="custom-select ml-1">
-                                <option selected>Size</option>
-                                <option value="1">41</option>
-                                <option value="2">42</option>
-                                <option value="3">43</option>
-                            </select>
-                        </div>
-                        <div class="buy d-flex justify-content-between align-items-center">
-                            <div class="price text-success"><h5 class="mt-4">@product.Product_Price</h5></div>
-                            @*<a href="@Url.Action("AddCart", "Cart")",@, class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>*@
-                            @Html.ActionLink("Add To Cart", "AddCart","CartItem", new { id = product.Product_Id }, new { @class = "btn btn-danger mt-3" })
+    <label id="lb_customerid" class="d-none">@Session["Customer_id"]</label>
+    <div class="container-fluid">
+        <div class="row">
+            <input id="colorid" type="hidden"/>
+            @foreach (var product in Model)
+            {
+                <div class="col-md-3 col-sm-6 my-5">
+                    <div class="card">
+                        
+                        <img class="card-img" src="@Url.Content("/Images/ProductImg/Boots/" + product.Product_Image)" alt="@product.Product_Image" height="300" width="100">
+                        <div class="card-body">
+                            <h4 class="card-title">@product.Product_Name</h4>
+                            <div class="options d-flex flex-fill">
+                                @Html.DropDownList(@product.Product_Id.ToString(), ViewBag.Color as SelectList, new { @class = "custom-select ml-1 color", @id = product.Product_Id })
+                                @Html.DropDownList("Size", ViewBag.Size as SelectList, new { @class = "custom-select ml-1" })
+                            </div>
+                            <div class="buy d-flex justify-content-between align-items-center">
+                                <div class="price text-success"><h5 class="mt-4">@product.Product_Price</h5></div>
+                                @*<a href="@Url.Action("AddCart", "Cart")",@, class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>*@
+                                @*onclick="location.href='@Url.Action("Detail", "Home")?id=' + document.getElementById('Id_Of_Textbox').value"*@
+                                @Html.ActionLink("Add To Cart", "AddCart", "CartItem", new { id = product.Product_Id }, new { @class = "btn btn-danger mt-3" })
+                                @*<input type="button" value="Detail" onclick="location.href='@Url.Action("AddCart", "CartItem")?id='+ @product.Product_Id + '?selectedid=' + document.getElementById('colorid').value" />*@
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
-    </form>
+</form>
+<script>
+    $(document).ready(function () {
+        $(".color").on("change", function () {
+            var selectedId = this.value;
+           // var id = this.id;
+            document.getElementById("colorid").value = selectedId;
+        });
+    });
+
+
+</script>

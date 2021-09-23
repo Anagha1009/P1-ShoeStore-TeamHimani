@@ -22,8 +22,7 @@ namespace ShoesWeb.Models
                 Category_Name = product.tb_category.category_name,
                 Product_Price = product.product_price,
                 Product_Quantity = product.product_quantity,
-                Product_Image = product.product_image,                 
-                
+                Product_Image = product.product_image,
             };
         }
 
@@ -96,7 +95,8 @@ namespace ShoesWeb.Models
                 store_id = cart.Store_Id,
                 product_id = cart.Product_Id,
                 color=cart.Color,
-                size=cart.Size
+                size=cart.Size,
+                product_price = cart.Product_Price
             };
 
         }
@@ -114,7 +114,46 @@ namespace ShoesWeb.Models
                 Product_Id = cart.product_id,
                 Product_Image = cart.tb_products.product_image,
                 Product_Name = cart.tb_products.product_name,
-                Product_Price = cart.tb_products.product_price
+                Product_Price = cart.product_price,
+            };
+        }
+
+        public static tb_order MapOrder(Order order)
+        {
+            return new tb_order()
+            {
+                
+                order_id = order.Order_Id,
+                total_bill = order.TotalBill,
+                date = order.Date,
+                customer_id = order.Customer_Id,
+                store_id = order.Store_Id,                
+            };
+        }
+
+        public static tb_orderdetails MapOrderDetails(Order order)
+        {
+            return new tb_orderdetails()
+            {
+                order_id = order.Order_IdF,
+                product_id = order.Product_Id,
+            };
+        }
+
+        //Display
+        public static Order MapViewOrder(tb_order order)
+        {
+            return new Order()
+            {
+                Order_Id = order.order_id,
+                TotalBill = order.total_bill,
+                Date = order.date,
+                Customer_Id = order.customer_id,
+                Product_Name = order.tb_orderdetails.tb_products.product_name,
+                Product_Price = order.tb_orderdetails.tb_products.product_price,
+                Store_Id = order.store_id,
+                Product_Id = order.tb_orderdetails.product_id,
+                Order_IdF = order.tb_orderdetails.order_id,
             };
         }
 
