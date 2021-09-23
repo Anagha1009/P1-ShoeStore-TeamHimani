@@ -24,8 +24,8 @@ namespace ShoesWeb.Controllers
         public ActionResult Index(string username)
         {
             var product = repo.GetProducts();
-
             var data = new List<Product>();
+
             foreach (var p in product)
             {
                 data.Add(Mapper.Map(p));
@@ -51,6 +51,9 @@ namespace ShoesWeb.Controllers
         [HttpGet]
         public ActionResult GetProducts()
         {
+            ViewBag.Color = new SelectList(repo.getColor(), "color_id", "color");
+            ViewBag.Size = new SelectList(repo.getSize(), "size_id", "size");
+
             var product = repo.GetProducts();
 
             var data = new List<Product>();
@@ -154,10 +157,6 @@ namespace ShoesWeb.Controllers
         [HttpPost]
         public ActionResult AddProduct(Product products, HttpPostedFileBase Product_Image)
         {
-            //if (ModelState.IsValid)
-            //{
-
-            //}
             int prodid = repo.GetMaxProductId();
             int newproid = prodid + 1;
 
@@ -185,11 +184,11 @@ namespace ShoesWeb.Controllers
                 }
             }
 
-            repo.AddProduct(Mapper.Maps(products));            
+            repo.AddProduct(Mapper.Maps(products));
 
             List<int> cl = products.ColorList;
 
-            if(cl != null)
+            if (cl != null)
             {
                 foreach (var pcc in cl)
                 {
@@ -201,11 +200,11 @@ namespace ShoesWeb.Controllers
                     pm.tb_productcolor.AddRange(productColors);
                     pm.SaveChanges();
                 }
-            }            
+            }
 
             List<int> sl = products.SizeList;
 
-            if(sl != null)
+            if (sl != null)
             {
                 foreach (var pcc in sl)
                 {
@@ -217,10 +216,16 @@ namespace ShoesWeb.Controllers
                     pm.tb_productsize.AddRange(productSizess);
                     pm.SaveChanges();
                 }
-            }           
+            }
 
             return RedirectToAction("Index");
-            //return View(products);
+        }
+
+        [HttpPost]
+        public void CheckColorAvailability(int selectedId, int productId)
+        {
+
+            RedirectToAction("GetProducts", "Product");
         }
     }
 }

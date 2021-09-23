@@ -32,9 +32,10 @@ namespace ShoesWeb.Controllers
         public ActionResult ViewCart()
         {
             int cid = Convert.ToInt32(Session["Customer_id"]);
-            var result = repo.ViewCartItems(cid);
-
+            var result = repo.ViewCartItems(cid);           
+           
             var data = new List<CartItem>();
+            
             foreach (var p in result)
             {
                 data.Add(Mapper.MapViewCart(p));

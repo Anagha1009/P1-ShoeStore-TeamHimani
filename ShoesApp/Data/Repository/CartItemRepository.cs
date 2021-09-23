@@ -23,6 +23,7 @@ namespace Data.Repository
             cartitems.product_id = id;
             cartitems.color = "Blue";
             cartitems.size = 7;
+            cartitems.product_price = pm.tb_products.Where(e => e.product_id == id).FirstOrDefault().product_price;
             db.tb_cartitem.Add(cartitems);
             Save();
         }
