@@ -12,5 +12,7 @@ namespace Data.Repository
         void AddCartItems(tb_cartitem cartitems, int? id, int cid);
 
         IEnumerable<tb_cartitem> ViewCartItems(int cid);
+
+        void DeleteCart(int id);
     }
 }

@@ -15,27 +15,82 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sub-nav" aria-controls="sub-nav" aria-expanded="false">
                 <span class="fa fa-bars"></span> Menu
             </button>
-            <div class="collapse navbar-collapse" id="sub-nav">                
-                <ul class="navbar-nav">
-                    <li class="nav-item active">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="#">Page 1</a>
-                            <a class="dropdown-item" href="#">Page 2</a>
-                            <a class="dropdown-item" href="#">Page 3</a>
-                            <a class="dropdown-item" href="#">Page 4</a>
+            <div class="collapse navbar-collapse" id="sub-nav">
+
+                @if (Session["username"] != null)
+                {
+                    if (Session["username"].ToString() == "admin")
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="#">Page 1</a>
+                                    <a class="dropdown-item" href="#">Page 2</a>
+                                    <a class="dropdown-item" href="#">Page 3</a>
+                                    <a class="dropdown-item" href="#">Page 4</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Product", "Index", "Product", new { username = Session["username"] }, new { @class = "nav-link" })</li>
+                            @*<li class="nav-item">@Html.ActionLink("View Orders", "Index", "Order", new { username = Session["username"] }, new { @class = "nav-link" })</li>*@
+                        </ul>
+                        <div class="mx-auto">
+                            @Html.ActionLink("Shoe Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                         </div>
-                    </li>
-                    
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Product", "Index", "Product", new { username = Session["username"] }, new { @class = "nav-link" })</li>
-                </ul>
-                <div class="mx-auto">
-                    @Html.ActionLink("Shoe Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                
+                    }
+                        else
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="#">Page 1</a>
+                                    <a class="dropdown-item" href="#">Page 2</a>
+                                    <a class="dropdown-item" href="#">Page 3</a>
+                                    <a class="dropdown-item" href="#">Page 4</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Shoes", "GetProducts", "Product", new { username = Session["username"] }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("View Orders", "Index", "Order", new { username = Session["username"] }, new { @class = "nav-link" })</li>
+                        </ul>
+                        <div class="mx-auto">
+                            @Html.ActionLink("Shoe Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">@Html.ActionLink("Home", "Index", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Page</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="#">Page 1</a>
+                                <a class="dropdown-item" href="#">Page 2</a>
+                                <a class="dropdown-item" href="#">Page 3</a>
+                                <a class="dropdown-item" href="#">Page 4</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { controller = "Home" }, new { hidefocus = "hidefocus", @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Login", "LoginCustomer", "User", new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Register", "RegisterCustomer", "User", new { @class = "nav-link" })</li>
+                    </ul>
+                    <div class="mx-auto">
+                        @Html.ActionLink("Shoe Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                }
+
                 <ul class="navbar-nav ml-auto">
                     <li>
                         <a href="@Url.Action("ViewCart", "CartItem")" class="nav-link d-inline "><span class="fa fa-shopping-cart"></span></a>
