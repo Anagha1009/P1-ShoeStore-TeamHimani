@@ -3,74 +3,37 @@
 @{
     ViewBag.Title = "GetProductById";
 }
+<style>
+    .card {
+        /*/ Add shadows to create the "card" effect /*/
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
 
-<h3 class="text-center">Get Product By Id</h3>
-
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+</style>
 <div class="container-fluid">
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Product_Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Product_Name)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category_Name)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Store_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Store_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Product_Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Product_Quantity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Product_Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Product_Image)
-        </dd>
-       
-    </dl>
+    <div class="col-md-3 mt-4 mx-auto">
+        <div class="card">
+            <img class="card-img" src="@Url.Content("/Images/ProductImg/Boots/" + @Html.DisplayFor(model => model.Product_Image))" alt="@Html.DisplayFor(model => model.Product_Image)" height="250" width="100">
+            <div class="card-body">
+                <h3 class="card-title">@Html.DisplayFor(model => model.Product_Name)</h3>
+                <h6 class="d-inline">Id </h6>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(model => model.Product_Id)<br />
+                <h6 class="d-inline">Category </h6>: &nbsp;&nbsp;@Html.DisplayFor(model => model.Category_Name)<br />
+                <h6 class="d-inline">Store </h6>:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(model => model.Store_Name)<br />
+                <h6 class="d-inline">Quantity </h6>: &nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(model => model.Product_Quantity)<br />
+                <h6 class="d-inline">Price </h6>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(model => model.Product_Price)
+            </div>
+            <div class="card-footer">
+                @Html.ActionLink("Edit", "UpdateProductById", new { id = Model.Product_Id, @class = "btn btn-dark" })
+            </div>
+        </div>
+    </div>
+    
 </div>
 <p>
-    @Html.ActionLink("Edit", "UpdateProductById", new {  id = Model.Product_Id }) |
+     |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -15,6 +15,8 @@ namespace Data
         void DeleteProduct(int id);
         void Save();
         string CheckUserRole(string username);
-        bool CheckColorAvailability(int selectedid, int productid);
+        bool CheckColorAvailability(int? selectedcolorid, int? productid);
+
+        bool CheckSizeAvailability(int? selectedsizeid, int? productid);
     }
 }

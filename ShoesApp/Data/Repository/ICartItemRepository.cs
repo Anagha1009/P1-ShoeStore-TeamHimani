@@ -14,5 +14,7 @@ namespace Data.Repository
         IEnumerable<tb_cartitem> ViewCartItems(int cid);
 
         void DeleteCart(int id);
+
+        int GetCartItemsCount(int cid);
     }
 }

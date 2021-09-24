@@ -4,67 +4,51 @@
     ViewBag.Title = "GetCustomer";
 }
 
+<link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
+<h3 class="text-center mt-4">List of Customers</h3>
 
-<style>
-    tr:hover {
-        background-color: rgb(132 132 132 / 0.80);
-    }
-
-    th {
-        background-color: black;
-        color: azure;
-    }
-</style>
-
-<h3 class="text-center text-uppercase">List of Customers</h3>
-<div class="container">
-    
+<div class="container-fluid">
 
     @using (Html.BeginForm("GetCustomer", "User", FormMethod.Get))
     {
-<span>Customer Name:</span> @Html.TextBox("name")
-                <input type="submit" value="Search" />
+        <span>Search by Customer Name:</span>
+        <div class="col-md-5 mb-4 mt-3">
+            <div class="row">
+                <div class="col-md-8">
+                    <input class="form-control" name="name" type="text" value="" />
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" value="Search" class="btn btn-dark" />
+                </div>
+            </div>
+        </div>
     }
-   
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer_Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer_Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer_Contact)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_Contact)
-                </td>
-                
+    <table id="customerTable" class="table table-bordered text-center w-100 table-striped">
+        <thead>
+            <tr class="bg-light">
+                <th>Customer Id</th>
+                <th>Customer Name</th>
+                <th>Customer Email</th>
+                <th>Customer Contact</th>
             </tr>
-        }
-
-
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Customer_Id)</td>
+                    <td> @Html.DisplayFor(modelItem => item.Customer_Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Customer_Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Customer_Contact)</td>
+                </tr>
+            }
+        </tbody>
     </table>
-
-    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('#customerTable').DataTable();
+</script>

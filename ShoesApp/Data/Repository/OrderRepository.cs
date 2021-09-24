@@ -25,7 +25,7 @@ namespace Data.Repository
                 order.customer_id = cid;
                 order.store_id = cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid).FirstOrDefault().store_id;
                 order.total_bill = Convert.ToDecimal(cm.tb_cartitem.Where<tb_cartitem>(p => p.customer_id == cid).Sum(x => x.product_price));
-                order.date = DateTime.Now.Date;
+                order.date = DateTime.Now;
                 db.tb_order.Add(order);
                 Save();
                 
