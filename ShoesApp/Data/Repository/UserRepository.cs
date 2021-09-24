@@ -60,7 +60,7 @@ namespace Data.Repository
             db.SaveChanges();
         }
 
-        //nikita
+       
 
         public IEnumerable<tb_customers> GetCustomer()
         {

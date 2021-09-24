@@ -15,7 +15,7 @@ namespace Data.Repository
         void LoginAdmin(tb_users user);
         void Save();
 
-        //nikita
+        
 
         IEnumerable<tb_customers> GetCustomer();
     }

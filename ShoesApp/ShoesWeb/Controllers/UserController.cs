@@ -90,7 +90,7 @@ namespace ShoesWeb.Controllers
         }
 
 
-        //nikita
+
         public ActionResult GetCustomer(string name)
         {
             if ((Session["username"] != null) && (Session["role"].ToString() == "admin"))
