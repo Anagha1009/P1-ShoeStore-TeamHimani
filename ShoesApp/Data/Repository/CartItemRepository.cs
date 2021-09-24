@@ -30,6 +30,11 @@ namespace Data.Repository
             Save();
             return storeid;
         }
+        public int GetCartItemsCount(int cid)
+        {
+            int count = db.tb_cartitem.Where(c => c.customer_id == cid).Count();
+            return count;
+        }
         public void Save()
         {
             db.SaveChanges();
@@ -64,7 +69,6 @@ namespace Data.Repository
             {
                 db.tb_cartitem.Remove(pro);
                 Save();
-
             }
             else
                 throw new ArgumentException("product is not found");

@@ -16,77 +16,93 @@
         }
 </style>
 <div class="container mt-5">
+    @if (@Model.Count() > 0)
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5>My Cart</h5>
+                    </div>
+                    <div class="card-body" style="overflow-y: scroll; height: 28rem">
+                        @foreach (var item in Model)
+                        {
+                            <div class="media pb-4 pt-2">
+                                <img class="align-self-center mr-3" src="@Url.Content("/Images/ProductImg/Boots/" + item.Product_Image)" height="130" width="130" />
+                                <div class="media-body">
+                                    @Html.HiddenFor(modelItem => item.Cart_Id)
+                                    @Html.HiddenFor(modelItem => item.Customer_Id)
+                                    @Html.HiddenFor(modelItem => item.Store_Id)
+                                    @Html.HiddenFor(modelItem => item.Product_Id)
+                                    <label><b>@Html.DisplayFor(modelItem => item.Product_Name)</b></label><br />
+                                    <label>Size: @Html.DisplayFor(modelItem => item.Size)</label><br />
+                                    <label><i class="fas fa-rupee-sign"></i> @Html.DisplayFor(modelItem => item.Product_Price)</label><br />
+                                    <label>Color : @Html.DisplayFor(modelItem => item.Color)</label><br />
+                                    @*@Html.ActionLink("Remove", "DeleteCartById", "CartItem", new { id = item.Cart_Id, hidefocus = "hidefocus" })*@
+                                    @Html.ActionLink("Remove", "DeleteCartById", new { id = item.Cart_Id })
 
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <h5>My Cart</h5>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="card-footer text-right">
+                        @Html.ActionLink("Place Order", "PlaceOrder", "Order", new { controller = "Order" }, new { hidefocus = "hidefocus", @class = "btn btn-dark" })
+                    </div>
                 </div>
-                <div class="card-body" style="overflow-y: scroll; height: 28rem">
-                    @foreach (var item in Model)
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="text-light" style="color: #878787 !important">PRICE DETAILS</h5>
+                    </div>
+                    @if (Model.Any())
                     {
-                        <div class="media pb-4 pt-2">
-                            <img class="align-self-center mr-3" src="@Url.Content("/Images/ProductImg/Boots/" + item.Product_Image)" height="130" width="130" />
-                            <div class="media-body">
-                                @Html.HiddenFor(modelItem => item.Cart_Id)
-                                @Html.HiddenFor(modelItem => item.Customer_Id)
-                                @Html.HiddenFor(modelItem => item.Store_Id)
-                                @Html.HiddenFor(modelItem => item.Product_Id)
-                                <label><b>@Html.DisplayFor(modelItem => item.Product_Name)</b></label><br />
-                                <label>Size: @Html.DisplayFor(modelItem => item.Size)</label><br />
-                                <label><i class="fas fa-rupee-sign"></i> @Html.DisplayFor(modelItem => item.Product_Price)</label><br />
-                                <label>Color : @Html.DisplayFor(modelItem => item.Color)</label><br />
-                                @*@Html.ActionLink("Remove", "DeleteCartById", "CartItem", new { id = item.Cart_Id, hidefocus = "hidefocus" })*@
-                                @Html.ActionLink("Remove", "DeleteCartById", new { id = item.Cart_Id })
 
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label>Price (@Model.Count() item)</label>
+                                </div>
+
+                                <div class="col text-right">
+                                    <label><i class="fas fa-rupee-sign"></i>@Model.Sum(v => v.Product_Price)</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label>Delivery Charges</label>
+                                </div>
+                                <div class="col text-right">
+                                    <label><i class="fas fa-rupee-sign"></i> 0</label>
+                                </div>
+                            </div>
+                            <div class="form-group row border-top pt-3">
+                                <div class="col">
+                                    <label><b>Total Amount</b></label>
+                                </div>
+                                <div class="col text-right">
+                                    <label><b><i class="fas fa-rupee-sign"></i>@Model.Sum(v => v.Product_Price)</b></label>
+                                </div>
                             </div>
                         </div>
                     }
-
-                </div>
-                <div class="card-footer text-right">
-                    @Html.ActionLink("Place Order", "PlaceOrder", "Order", new { controller = "Order" }, new { hidefocus = "hidefocus", @class = "btn btn-dark" })
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <h5 class="text-light" style="color: #878787 !important">PRICE DETAILS</h5>
+    }
+    else
+    {
+        <div class="alert alert-danger d-flex" role="alert" style="margin-top:10rem;margin-bottom:10rem;padding:5rem 5rem 5rem 5rem;">
+            <div class="row mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg>
+                <div class="pl-4">
+                    Sorry ! You have no Items in your Cart.
                 </div>
-                @if (Model.Any())
-                {
-
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col">
-                                <label>Price (@Model.Count() item)</label>
-                            </div>
-
-                            <div class="col text-right">
-                                <label><i class="fas fa-rupee-sign"></i>@Model.Sum(v => v.Product_Price)</label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col">
-                                <label>Delivery Charges</label>
-                            </div>
-                            <div class="col text-right">
-                                <label><i class="fas fa-rupee-sign"></i> 0</label>
-                            </div>
-                        </div>
-                        <div class="form-group row border-top pt-3">
-                            <div class="col">
-                                <label><b>Total Amount</b></label>
-                            </div>
-                            <div class="col text-right">
-                                <label><b><i class="fas fa-rupee-sign"></i>@Model.Sum(v => v.Product_Price)</b></label>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
         </div>
-    </div>
+    }
+
 </div>

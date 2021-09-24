@@ -100,7 +100,7 @@ namespace Data
             {
                 //db.Entry(pro).State = EntityState.Modified;
                 pro.product_name = products.product_name;
-                pro.product_image = products.product_image;
+                pro.product_image = String.IsNullOrEmpty(products.product_image) ? "NULL" : products.product_image;
                 pro.product_price = products.product_price;
                 pro.product_quantity = products.product_quantity;
                 pro.category_id = products.category_id;
@@ -146,11 +146,25 @@ namespace Data
             return db.tb_sizes.ToList();
         }
 
-        public bool CheckColorAvailability(int selectedid, int productid)
+        public bool CheckColorAvailability(int? selectedcolorid, int? productid)
         {
-            var id = db.tb_productcolor.Where(e => e.color_id == selectedid && e.product_id == productid).FirstOrDefault();
+            var id = db.tb_productcolor.Where(e => e.color_id == selectedcolorid && e.product_id == productid).FirstOrDefault();
 
             if(id != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool CheckSizeAvailability(int? selectedsizeid, int? productid)
+        {
+            var id = db.tb_productsize.Where(e => e.size_id == selectedsizeid && e.product_id == productid).FirstOrDefault();
+
+            if (id != null)
             {
                 return true;
             }

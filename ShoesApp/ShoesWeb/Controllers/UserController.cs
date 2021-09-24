@@ -17,10 +17,12 @@ namespace ShoesWeb.Controllers
 
 
         UserRepository repo;
+        CartItemRepository repo1;
         public UserController()
         {
             db = new UserModel();
             repo = new UserRepository(new UserModel());
+            repo1 = new CartItemRepository(new CartItemModel());
         }
 
         [HttpGet]
@@ -58,7 +60,11 @@ namespace ShoesWeb.Controllers
                 if (role.ToLower() == "customer")
                 {
                     var custid = db.tb_customers.Where(e => e.user_id == u_id).FirstOrDefault().customer_id;
+
+                    var cartitemscount = repo1.GetCartItemsCount(custid);
+
                     Session["Customer_id"] = custid;
+                    Session["cartitem_count"] = cartitemscount;
                     // TempData["Customer_id"] = custid;
                 }
                 Session["username"] = username;

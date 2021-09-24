@@ -4,55 +4,206 @@
     ViewBag.Title = "GetProducts";
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<style>
+    /*.modal-backdrop {
+            background-color: #808080 !important;
+            opacity:0.5;
+        }*/
+
+    .shoeStoreCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        right: 50%;
+        left: 50%;
+        position: absolute;
+        z-index: 1;
+        margin-top: 5rem;
+        -webkit-transform: translate(0);
+        -moz-transform: translate(0);
+        transform: translate(0);
+    }
+
+    .img-container {
+        margin-bottom: -50px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .skewed {
+        width: 250px;
+        height: 250px;
+        margin: 50px 0 -50px 0;
+        border-radius: 30px;
+        transform: skewY(15deg);
+        overflow: hidden;
+    }
+
+    #img {
+        width: 100%;
+        height: 100%;
+        margin-top: -30px;
+        transform: skewY(-15deg);
+        background-image: url("/Images/BannerImg/shoestore.jpg");
+        background-size: 100%;
+        background-position: center;
+        transition: all 0.3s ease;
+    }
+
+        #img:hover {
+            background-size: 110%;
+        }
+
+    .content {
+        width: 350px;
+        height: 200px;
+        padding-top: 50px;
+        border-radius: 5px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+
+        .content .links {
+            width: 80%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+    .search {
+        color: #b95808;
+        font-size: 25px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .search:hover {
+            transform: scale(1.2);
+        }
+</style>
 <form>
     <label id="lb_customerid" class="d-none">@Session["Customer_id"]</label>
     <div class="container-fluid">
+
         @using (Html.BeginForm("AllOrder", "Order", FormMethod.Get))
         {
-             @Html.DropDownList("id", ViewBag.Store as SelectList, "Please select the store", new { @class = "form-control" })
-            <input type="submit" value="Search" />
+            <div id="shoestore" class="shoeStoreCard" style="display:none">
+                <div class="img-container">
+                    <div class="skewed">
+                        <div id="img"></div>
+                    </div>
+                </div>
+                <div class="content">
+                    <h5>Choose your store</h5>
+                    @Html.DropDownList("id", ViewBag.Store as SelectList, "Please select the store", new { @class = "form-control w-75" })
+                    <div class="links">
+                        <button id="search" type="submit" class="btn btn-sm search">Search <i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
         }
+
+    <div class="container-fluid mt-4" id="productDiv">
+        <a id="showStore" class="btn btn-light text-danger">Change Store</a>
         <div class="row">
             <input id="colorid" type="hidden" />
             @foreach (var product in Model)
             {
-                <div class="col-md-3 col-sm-6 my-5">
+                <div class="col-md-3 col-sm-6 my-2">
                     <div class="card">
-
                         <img class="card-img" src="@Url.Content("/Images/ProductImg/Boots/" + product.Product_Image)" alt="@product.Product_Image" height="300" width="100">
                         <div class="card-body">
                             <h4 class="card-title">@product.Product_Name</h4>
                             @using (Html.BeginForm("AddCart", "CartItem", FormMethod.Get))
                             {
-                        <div class="options d-flex flex-fill">
-                            @Html.Hidden("pid", product.Product_Id)
-                            @Html.DropDownList("Color", ViewBag.Color as SelectList, new { @class = "custom-select ml-1 color" })
-                            @Html.DropDownList("Size", ViewBag.Size as SelectList, new { @class = "custom-select ml-1" })
-                        </div>
+                                <div class="options d-flex flex-fill">
+                                    @Html.Hidden("pid", product.Product_Id)
+                                    @Html.DropDownList("Color", ViewBag.Color as SelectList, new { @class = "custom-select ml-1 color" })
+                                    @Html.DropDownList("Size", ViewBag.Size as SelectList, new { @class = "custom-select ml-1" })
+                                </div>
 
-                        <div class="buy d-flex justify-content-between align-items-center">
-                            <div class="price text-success"><h5 class="mt-4">@product.Product_Price</h5></div>
-                            <input type="submit" value="Add To Cart" />
-                            @*<a href="@Url.Action("AddCart", "Cart")",@, class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>*@
-                            @*onclick="location.href='@Url.Action("Detail", "Home")?id=' + document.getElementById('Id_Of_Textbox').value"*@
-                            @*@Html.ActionLink("Add To Cart", "AddCart", "CartItem", new { id = product.Product_Id }, new { hidefocus = "hidefocus", @class = "btn btn-danger mt-3" })*@
-                            @*<input type="button" value="Detail" onclick="location.href='@Url.Action("AddCart", "CartItem")?id='+ @product.Product_Id + '?selectedid=' + document.getElementById('colorid').value" />*@
-                        </div>}
-                            </div>
+                                <div class="buy d-flex justify-content-between align-items-center">
+                                    <div class="price text-success"><h5 class="mt-4"><i class="fas fa-rupee-sign"></i> @product.Product_Price</h5></div>
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-shopping-cart"></i> Add To Cart</button>
+                                    @*<a href="@Url.Action("AddCart", "Cart")",@, class="btn btn-danger mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>*@
+                                    @*onclick="location.href='@Url.Action("Detail", "Home")?id=' + document.getElementById('Id_Of_Textbox').value"*@
+                                    @*@Html.ActionLink("Add To Cart", "AddCart", "CartItem", new { id = product.Product_Id }, new { hidefocus = "hidefocus", @class = "btn btn-danger mt-3" })*@
+                                    @*<input type="button" value="Detail" onclick="location.href='@Url.Action("AddCart", "CartItem")?id='+ @product.Product_Id + '?selectedid=' + document.getElementById('colorid').value" />*@
+                                </div>}
+                        </div>
                     </div>
                 </div>
             }
         </div>
     </div>
+        
+    </div>
 </form>
 <script>
     $(document).ready(function () {
-        $(".color").on("change", function () {
-            var selectedId = this.value;
-           // var id = this.id;
-            document.getElementById("colorid").value = selectedId;
-        });
+
+        var url = window.location.href
+        var lastPart = url.split("/").pop();
+        var me = getUrlVars()["id"];
+
+        if (me == 0 || me == null)
+        {
+            if (/^\d$/.test(lastPart)) {
+                $("#shoestore").attr('style', 'display:none');
+                $('#productDiv').removeAttr('style', 'filter: blur(8px)');
+            }
+            else {
+                showStore();
+
+            }
+        }
+        else {
+
+            $("#shoestore").attr('style', 'display:none');
+            $('#productDiv').removeAttr('style', 'filter: blur(8px)');
+        }        
     });
 
+    $("#search").click(function () {
+
+        if (document.getElementById("id").value == "") {
+            alert("Please Select Store");
+            return false;
+        }
+        else {
+            $("#shoestore").attr('style', 'display:none');
+            $('#productDiv').removeAttr('style', 'filter: blur(8px)');
+        }       
+    });
+
+    $("#showStore").click(function () {
+        showStore();
+    });
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function showStore() {
+        $("#shoestore").removeAttr('style', 'display:none');
+        $('#productDiv').attr('style', 'filter: blur(8px)');
+        const element = document.querySelector('.shoeStoreCard');
+        element.classList.add('animated', 'flipInX');
+        setTimeout(function () {
+            element.classList.remove('flipInX');
+        }, 2000);
+    }
 
 </script>

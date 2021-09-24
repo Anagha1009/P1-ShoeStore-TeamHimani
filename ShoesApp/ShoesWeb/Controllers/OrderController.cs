@@ -51,11 +51,12 @@ namespace ShoesWeb.Controllers
                     {
                         repo.DeleteInventory(v.product_id);
                         repo1.DeleteCart(v.cart_id);
+                        Session["cartitem_count"] = Convert.ToInt32(Session["cartitem_count"]) - 1;
                     }
                     repo1.Save();
                     repo.Save();
-
-                    return RedirectToAction("ViewCart", "CartItem");
+                    
+                    return RedirectToAction("ShowMessage", "Order");
                 }
                 else
                 {
@@ -71,8 +72,13 @@ namespace ShoesWeb.Controllers
             
 
             //repo.DeleteCart(cid);
+        }
 
+        public ActionResult ShowMessage()
+        {
+            ViewBag.Message = "<script type='text/javascript'>$(document).ready(function (){swal({text: 'You have successfully placed your order!',type: 'success',allowOutsideClick: false}).then(function() {window.location = '/Order/Index';})});</script>";
 
+            return View();
         }
 
         [HttpGet]
@@ -101,7 +107,7 @@ namespace ShoesWeb.Controllers
         [HttpGet]
         public ActionResult AllOrder(int? id)
         {
-                if ((Session["username"] != null) && (Session["role"].ToString() == "admin"))
+            if ((Session["username"] != null) && (Session["role"].ToString() == "admin"))
             {
                 ViewBag.Store = new SelectList(repo.getStore(), "store_id", "store_name");
                 var data1 = repo.GetOrder();

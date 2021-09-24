@@ -3,54 +3,37 @@
 @{
     ViewBag.Title = "Index";
 }
+<link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<h3 class="text-center mt-3">Your Orders</h3>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Order_Id)
-        </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.TotalBill)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Store_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-      
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order_Id)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalBill)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Store_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-      
-    </tr>
-}
-
-</table>
+<div class="container-fluid">
+    <div class="col-md-10 mx-auto">
+        <table id="orderTable" class="table table-bordered text-center w-100">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Total Bill</th>
+                    <th>Store Id</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Order_Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TotalBill)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Store_Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('#orderTable').DataTable();
+</script>

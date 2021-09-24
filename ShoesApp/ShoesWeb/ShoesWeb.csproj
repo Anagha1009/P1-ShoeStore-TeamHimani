@@ -199,6 +199,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -209,6 +210,7 @@
     <Content Include="Images\BannerImg\NewBal.jpg" />
     <Content Include="Images\BannerImg\Nike.jpg" />
     <Content Include="Images\BannerImg\office_Converse-logo.jpg" />
+    <Content Include="Images\BannerImg\shoestore.jpg" />
     <Content Include="Images\BannerImg\Ugg-logo-Office-UK.jpg" />
     <Content Include="Images\BannerImg\WK12_HP2_Office.jpg" />
     <Content Include="Images\BannerImg\WK12_HP3_Office.jpg" />
@@ -380,6 +382,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\User\GetCustomer.cshtml" />
     <Content Include="Views\Order\AllOrder.cshtml" />
+    <Content Include="Views\Order\ShowMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

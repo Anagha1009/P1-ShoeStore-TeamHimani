@@ -49,6 +49,7 @@ namespace ShoesWeb.Controllers
                 ViewBag.Color = new SelectList(repo.getColor(), "color_id", "color");
                 ViewBag.Size = new SelectList(repo.getSize(), "size_id", "size");
                 ViewBag.Store = new SelectList(repo.getStore(), "store_id", "store_name");
+                
                 var product = repo.GetProducts();
 
                 var data = new List<Product>();
@@ -56,15 +57,18 @@ namespace ShoesWeb.Controllers
                 {
                     data.Add(Mapper.Map(p));
                 }
-                data = data.Where(x => x.Store_Id == id).ToList();
+
+                if(id != null)
+                {
+                    data = data.Where(x => x.Store_Id == id).ToList();
+                }                
 
                 return View(data);
             }
             else
             {
                 return RedirectToAction("LoginCustomer", "User");
-            }
-            
+            }            
         }
         public ActionResult GetProductById(int? id)
         {
@@ -175,7 +179,7 @@ namespace ShoesWeb.Controllers
                 }
                 catch (Exception)
                 {
-                    ViewBag.FileStatus = "Error while file uploading."; ;
+                    ViewBag.FileStatus = "Error while file uploading."; 
                 }
 
                 return RedirectToAction("Index");
@@ -201,7 +205,6 @@ namespace ShoesWeb.Controllers
             {
                 return RedirectToAction("LoginCustomer", "User");
             }
-
             
         }
         [HttpPost]
@@ -209,7 +212,7 @@ namespace ShoesWeb.Controllers
         {
             if ((Session["username"] != null) && (Session["role"].ToString() == "admin"))
             {
-               int prodid = repo.GetMaxProductId();
+                int prodid = repo.GetMaxProductId();
                 int newproid = prodid + 1;
 
                 if (Product_Image != null)
@@ -242,16 +245,18 @@ namespace ShoesWeb.Controllers
 
                 if (cl != null)
                 {
+                    ProductModel pm = new ProductModel();
                     foreach (var pcc in cl)
                     {
                         List<tb_productcolor> productColors = new List<tb_productcolor>(){
-                                        new tb_productcolor() { color_id = pcc, product_id = prodid}
+                                        new tb_productcolor() { color_id = pcc, product_id = newproid}
                                         };
 
-                        ProductModel pm = new ProductModel();
                         pm.tb_productcolor.AddRange(productColors);
                         pm.SaveChanges();
                     }
+
+                    pm.SaveChanges();
                 }
 
                 List<int> sl = products.SizeList;
@@ -261,7 +266,7 @@ namespace ShoesWeb.Controllers
                     foreach (var pcc in sl)
                     {
                         List<tb_productsize> productSizess = new List<tb_productsize>(){
-                                        new tb_productsize() { size_id = pcc, product_id = prodid}
+                                        new tb_productsize() { size_id = pcc, product_id = newproid}
                                         };
 
                         ProductModel pm = new ProductModel();
@@ -270,27 +275,12 @@ namespace ShoesWeb.Controllers
                     }
                 }
 
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
             else
             {
                 return RedirectToAction("LoginCustomer", "User");
             }
-            
-        }
-
-        [HttpPost]
-        public void CheckColorAvailability(int selectedId, int productId)
-        {
-            if ((Session["username"] != null) && (Session["role"].ToString() == "customer"))
-            {
-                RedirectToAction("GetProducts", "Product");
-            }
-            else
-            {
-                RedirectToAction("LoginCustomer", "User");
-            }
-            
         }
     }
 }
