@@ -8,19 +8,19 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.6.0/css/all.min.css" integrity="sha512-ykRBEJhyZ+B/BIJcBuOyUoIxh0OfdICfHPnPfBy7eIiyJv536ojTCsgX8aqrLQ9VJZHGz4tvYyzOM0lkgmQZGw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet" />
     <style type="text/css">
         .cart {
             position: relative;
-            
             width: 28px;
             height: 28px;
             height: auto;
             overflow: hidden;
         }
-       
-        .material-icons
 
-        {
+        .material-icons {
             position: relative;
             top: 4px;
             z-index: 1;
@@ -143,8 +143,43 @@
 
     <div class="container-fluid">
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -  ShoesStore Application</p>
+        <footer class="footer-container text-white">
+            <div class="footer">
+                <div class="footer-heading footer-1">
+                    <h2>About Us</h2>
+                    <a href="">Blog</a>
+                    <a href="">Our Stores</a>
+                    <a href="">Terms of services</a>
+                </div>
+                <div class="footer-heading footer-2">
+                    <h2>Contact Us</h2>
+                    <a href="">5th floor | Maharaj Bhavan India  <br> Mumbai, India - 400060</a>
+                    <a href="">
+                        India: +91 7754951743 <br>
+                        (11:00 AM to 7 PM, IST)
+                    </a>
+
+                </div>
+
+                <div class="footer-email-form">
+                    <h2>Join our newsletter</h2>
+                    <input type="email" id="footer-email" placeholder="Enter your email id">
+                    <input type="submit" id="footer-email-btn" value="Sign Up">
+                </div>
+            </div>
+
+            <p class="follow">Follow us</p>
+            <div class="icon-container">
+                <div class="icon"><a href=""><i class="fa fa-instagram"></i></a></div>
+                <div class="icon"><a href=""><i class="fa fa-facebook"></i></a></div>
+                <div class="icon"><a href=""><i class="fa fa-youtube"></i></a></div>
+                <div class="icon"><a href=""><i class="fa fa-twitter"></i></a></div>
+
+            </div>
+            <div id="copyright">
+                <p id="copyright-content">&copy; 2021 ShoeStore. All rights reserved.</p>
+
+            </div>
         </footer>
     </div>
 

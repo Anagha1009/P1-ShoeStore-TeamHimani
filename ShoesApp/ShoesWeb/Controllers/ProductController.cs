@@ -249,7 +249,7 @@ namespace ShoesWeb.Controllers
                     foreach (var pcc in cl)
                     {
                         List<tb_productcolor> productColors = new List<tb_productcolor>(){
-                                        new tb_productcolor() { color_id = pcc, product_id = prodid}
+                                        new tb_productcolor() { color_id = pcc, product_id = newproid}
                                         };
 
                         pm.tb_productcolor.AddRange(productColors);
@@ -266,7 +266,7 @@ namespace ShoesWeb.Controllers
                     foreach (var pcc in sl)
                     {
                         List<tb_productsize> productSizess = new List<tb_productsize>(){
-                                        new tb_productsize() { size_id = pcc, product_id = prodid}
+                                        new tb_productsize() { size_id = pcc, product_id = newproid}
                                         };
 
                         ProductModel pm = new ProductModel();
