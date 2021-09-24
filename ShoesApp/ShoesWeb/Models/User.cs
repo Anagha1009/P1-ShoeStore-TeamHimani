@@ -26,9 +26,10 @@ namespace ShoesWeb.Models
         [Required(ErrorMessage = "Please enter Name")]
         public string Customer_Name { get; set; }
 
-        [RegularExpression(@"\A(?:[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'+/=?^_`{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-                            ErrorMessage = "Please enter a valid email address")]
         [Required(ErrorMessage = "Please enter Email")]
+        //[RegularExpression(@"/ ^([\w -\.] +)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{ 1,3}\.)| (([\w -] +\.)+))([a - zA - Z]{ 2,4}|[0 - 9]{ 1,3})(\]?)$/",
+        //                    ErrorMessage = "Please enter a valid email address")]
+       
         public string Customer_Email { get; set; }
 
         [Required(ErrorMessage = "Please enter Contact")]
